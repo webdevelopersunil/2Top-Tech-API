@@ -1,0 +1,568 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "FAMILIES IN FILM APIs",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://127.0.0.1:8082/api/",
+            "description": "LOCAL API Server"
+        },
+        {
+            "url": "https://fifapiqa.essentialdemo.com/api",
+            "description": "LIVE API Server"
+        }
+    ],
+    "paths": {
+        "/equipment": {
+            "get": {
+                "tags": [
+                    "Equipment"
+                ],
+                "summary": "Get a listing of the Equipment.",
+                "description": "Get all Equipment",
+                "operationId": "852ff5756afaa32475b4d9bde419e264",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Equipment"
+                ],
+                "summary": "Store a newly created Equipment in storage",
+                "description": "Store Equipment",
+                "operationId": "6fe10e8dbf891f7464ae20a1f3d36fac",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "Equipment that should be stored",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/equipment/{id}": {
+            "get": {
+                "tags": [
+                    "Equipment"
+                ],
+                "summary": "Display the specified Equipment",
+                "description": "Get Equipment",
+                "operationId": "35db341a00bacaf22038e9359b8c5aeb",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Equipment",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Equipment"
+                ],
+                "summary": "Update the specified Equipment in storage",
+                "description": "Update Equipment",
+                "operationId": "d27b862d8f6d32b195287d9f67da05b5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Equipment",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "Equipment that should be updated",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Equipment"
+                ],
+                "summary": "Remove the specified Equipment from storage",
+                "description": "Delete Equipment",
+                "operationId": "3714fd6243ad1168bd0a244f741f4d39",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Equipment",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/features": {
+            "get": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Get a listing of the Features.",
+                "description": "Get all Features",
+                "operationId": "9521496ff8ea68c45217ad52ca6dd01d",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Store a newly created Feature in storage",
+                "description": "Store Feature",
+                "operationId": "0046884845bd07f1b308a84ee5c78a43",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "Feature that should be stored",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/features/{id}": {
+            "get": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Display the specified Feature",
+                "description": "Get Feature",
+                "operationId": "d55d325b3f4a902ddddb46d59b3f43f3",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Feature",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Update the specified Feature in storage",
+                "description": "Update Feature",
+                "operationId": "bb5a9e8f110f4c16c1f1f0ad114a8469",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Feature",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "Feature that should be updated",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Feature"
+                ],
+                "summary": "Remove the specified Feature from storage",
+                "description": "Delete Feature",
+                "operationId": "9ffd305291fd52a23ff9cd5990ef3848",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of Feature",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/maintananceFrequencies": {
+            "get": {
+                "tags": [
+                    "MaintananceFrequency"
+                ],
+                "summary": "Get a listing of the MaintananceFrequencies.",
+                "description": "Get all MaintananceFrequencies",
+                "operationId": "1673a67610f2393a6fd93b1f3c1ee5a6",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "MaintananceFrequency"
+                ],
+                "summary": "Store a newly created MaintananceFrequency in storage",
+                "description": "Store MaintananceFrequency",
+                "operationId": "8e9af479ac85eada027a2f4d46f6e23a",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "MaintananceFrequency that should be stored",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/maintananceFrequencies/{id}": {
+            "get": {
+                "tags": [
+                    "MaintananceFrequency"
+                ],
+                "summary": "Display the specified MaintananceFrequency",
+                "description": "Get MaintananceFrequency",
+                "operationId": "57694b32eba6915dfcb871b0b7ce2c74",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of MaintananceFrequency",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "MaintananceFrequency"
+                ],
+                "summary": "Update the specified MaintananceFrequency in storage",
+                "description": "Update MaintananceFrequency",
+                "operationId": "bd648bd49cc503e764ccab474bc7b26d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of MaintananceFrequency",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "MaintananceFrequency that should be updated",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "MaintananceFrequency"
+                ],
+                "summary": "Remove the specified MaintananceFrequency from storage",
+                "description": "Delete MaintananceFrequency",
+                "operationId": "c4a9a119243ddec57c9917d0ab824e98",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of MaintananceFrequency",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/partRequests": {
+            "get": {
+                "tags": [
+                    "PartRequest"
+                ],
+                "summary": "Get a listing of the PartRequests.",
+                "description": "Get all PartRequests",
+                "operationId": "98b5d43bb08136f9766cf6b9c9d23573",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PartRequest"
+                ],
+                "summary": "Store a newly created PartRequest in storage",
+                "description": "Store PartRequest",
+                "operationId": "4fc79ed9bac1dfc3034cd210bb55a9a0",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "PartRequest that should be stored",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/partRequests/{id}": {
+            "get": {
+                "tags": [
+                    "PartRequest"
+                ],
+                "summary": "Display the specified PartRequest",
+                "description": "Get PartRequest",
+                "operationId": "1829052d369aea7ae646941d232b7501",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PartRequest",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PartRequest"
+                ],
+                "summary": "Update the specified PartRequest in storage",
+                "description": "Update PartRequest",
+                "operationId": "170254c0518a6295cc49967bbf1986fd",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PartRequest",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "PartRequest that should be updated",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PartRequest"
+                ],
+                "summary": "Remove the specified PartRequest from storage",
+                "description": "Delete PartRequest",
+                "operationId": "07705b4599a0e48c629cb6b4d9516140",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of PartRequest",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/providerPaymentMethods": {
+            "get": {
+                "tags": [
+                    "ProviderPaymentMethod"
+                ],
+                "summary": "Get a listing of the ProviderPaymentMethods.",
+                "description": "Get all ProviderPaymentMethods",
+                "operationId": "e6f44a7e3b15f323615c019a0d61497b",
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "ProviderPaymentMethod"
+                ],
+                "summary": "Store a newly created ProviderPaymentMethod in storage",
+                "description": "Store ProviderPaymentMethod",
+                "operationId": "5fd156522e4a4751080ac37e3ccdf39f",
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "ProviderPaymentMethod that should be stored",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        },
+        "/providerPaymentMethods/{id}": {
+            "get": {
+                "tags": [
+                    "ProviderPaymentMethod"
+                ],
+                "summary": "Display the specified ProviderPaymentMethod",
+                "description": "Get ProviderPaymentMethod",
+                "operationId": "ef8b341e0e9d4e242a21a99c6a054cba",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ProviderPaymentMethod",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "ProviderPaymentMethod"
+                ],
+                "summary": "Update the specified ProviderPaymentMethod in storage",
+                "description": "Update ProviderPaymentMethod",
+                "operationId": "eceef89f03c8fe4a063f1512104073d1",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ProviderPaymentMethod",
+                        "required": true
+                    },
+                    {
+                        "name": "body",
+                        "in": "path",
+                        "description": "ProviderPaymentMethod that should be updated",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "ProviderPaymentMethod"
+                ],
+                "summary": "Remove the specified ProviderPaymentMethod from storage",
+                "description": "Delete ProviderPaymentMethod",
+                "operationId": "a098b83291aa29d742730d4070a877b4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id of ProviderPaymentMethod",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "successful operation"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "name": "bearerAuth",
+                "in": "header",
+                "bearerFormat": "Passport",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "security": [
+        []
+    ]
+}

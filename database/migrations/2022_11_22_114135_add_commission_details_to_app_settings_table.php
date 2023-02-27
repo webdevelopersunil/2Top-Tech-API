@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddCommissionDetailsToAppSettingsTable extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('app_settings', function (Blueprint $table) {
+             $table->double('commission_percentage')->nullable()->default(10);
+             $table->double('commission_fixed_amount')->nullable()->default(10);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('app_settings', function (Blueprint $table) {
+            $table->dropColumn('commission_percentage');
+            $table->dropColumn('commission_fixed_amount');
+        });
+    }
+}
