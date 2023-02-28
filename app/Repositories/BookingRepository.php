@@ -134,7 +134,7 @@ class BookingRepository extends BaseRepository
         $data       =   $request->all();
         $provider   =   Provider::where('user_id',$user->id)->first('id');
 
-        $workLog    =   WorkLog::where(['uuid'=>$request->uuid])->with('booking')
+        $workLog    =   WorkLog::where(['uuid'=>$request->uuid, 'type' => 'WorkLog'])->with('booking')
                         ->whereHas('booking', function ($a) use ($provider){
                             $a->whereNotIn('status', ['Complete','Cancelled','Invoiced']);
                             $a->where('provider_id', $provider->id);

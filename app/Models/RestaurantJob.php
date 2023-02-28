@@ -80,7 +80,7 @@ class RestaurantJob extends Model
 
     public function JobCountRo($company_id){
 
-        $count  =   self::where('company_id',$company_id)->get()->count();
+        $count  =   self::where('company_id',$company_id)->where('status','!=','Cancelled')->get()->count();
         return $count;
     }
 
