@@ -257,7 +257,7 @@
                                             </svg>
                                             Print
                                         </button>
-                                        <button class="btn btn-primary px-4">Send</button>
+                                        {{-- <button class="btn btn-primary px-4">Send</button> --}}
                                     </div>
                                 </div>
                             </div>

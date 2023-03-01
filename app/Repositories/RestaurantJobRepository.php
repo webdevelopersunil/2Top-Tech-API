@@ -52,17 +52,19 @@ class RestaurantJobRepository extends BaseRepository
     public function updateJob($request){
 
         $data           =   $request->except(['files_id']);
+
         $company_id     = Company::where('user_id',Auth::user()->id)->first('id');
 
         $data['company_id'] = $company_id->id;
 
-        $validJob =   RestaurantJob::where('uuid', $request->uuid)
-                            ->where('status', 'Pending')
-                            ->whereHas('applications',
-                            function($q){
-                                $q->whereNotIn('application_status',['Offer_Sent','Offer_Accepted']);
-                            })
-                            ->first();
+        $validJob   =   RestaurantJob::where('uuid', $request->uuid)
+                        ->where('status', 'Pending')
+                        ->where(function ($query) {
+                            $query->doesntHave('applications')
+                                ->orWhereHas('applications', function ($q) {
+                                    $q->whereNotIn('application_status', ['Offer_Sent', 'Offer_Accepted']);
+                                });
+                        })->first();
 
         if($validJob){
             unset($data['service_id']);
@@ -81,7 +83,7 @@ class RestaurantJobRepository extends BaseRepository
 
             // Fetch Providers in Radius
             $response  = [];
-            $response = (new GoogleMap)->fetchInRadiusRecords($data['latitude'], $data['longitude'],$data['service_id'],$job->id);
+            $response = (new GoogleMap)->fetchInRadiusRecords($data['latitude'], $data['longitude'],$job->service_id,$job->id);
 
             $response['requestType'] = "updatePost";
             (new PushNotificationService)->sendEmailNotification($response);

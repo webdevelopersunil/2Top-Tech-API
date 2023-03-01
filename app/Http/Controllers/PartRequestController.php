@@ -65,7 +65,7 @@ class PartRequestController extends Controller
     public function show($id)
     {
         $auth_user      =   authSession();
-        $partrequest    =   PartRequest::with('provider.documents.document','provider.states','provider.user')->find($id);
+        $partrequest    =   PartRequest::with('provider.documents.document','file','provider.states','provider.user')->find($id);
         $pageTitle      =   __('messages.view_form_title',['form'=> __('Part Request Detail')]);
 
         foreach($partrequest->provider->documents as $document){

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+use Mail;
 use App\Models\User;
-use App\Models\Provider;
 use App\Models\Booking;
 use App\Models\Service;
-use App\Models\ProviderDocument;
-use App\DataTables\ProviderDataTable;
-use App\DataTables\ServiceDataTable;
-use App\Http\Requests\UserRequest;
+use App\Models\Provider;
 use App\Mail\mailToProvider;
-use Mail;
+use Illuminate\Http\Request;
+use App\Models\ProviderDocument;
+use App\Http\Requests\UserRequest;
+use App\DataTables\ServiceDataTable;
+use App\DataTables\ProviderDataTable;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Route;
 use App\Http\Service\FCMPushNotificationService;
 
 
@@ -155,9 +156,12 @@ class ProviderController extends Controller
         }
         $pageTitle = __('messages.view_form_title',['form'=> __('messages.provider')]);
 
+        $bankAccountNumber  =   isset($providerdata->providerPatymentMethod->account_number)?Crypt::decryptString($providerdata->providerPatymentMethod->account_number):null;
+
+
         return $dataTable
         ->with('provider_id',$id)
-        ->render('provider.view', compact('pageTitle' ,'providerdata' ,'auth_user', 'profile_picture' ));
+        ->render('provider.view', compact('pageTitle' ,'providerdata' ,'auth_user', 'profile_picture','bankAccountNumber' ));
     }
 
     /**

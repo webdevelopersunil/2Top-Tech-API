@@ -389,110 +389,111 @@
                 @endif
                 @endforeach
 
-                <!-- </table> -->
             </div>
         </div>
 
-
-
-        {{-- <div class="row">
+        <div class="row">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body p-0">
                         <div class="d-flex justify-content-between align-items-center p-3 asd">
-                            <h5>{{ __('messages.provider_services') }}</h5>
+                            <h5>{{ __('Bank Detail') }}</h5>
                         </div>
-                        {{ $dataTable->table(['class' => 'table  w-100'], false) }}
-                    </div>
-                </div>
-            </div>
-        </div> --}}
+                        <div class="d-flex justify-content-between align-items-center p-3 asd">
+                            @if ($providerdata->providerPatymentMethod)
+                                <table class="table table-borderless mb-0">
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.account_holder_name') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ">
+                                                {{ $providerdata->providerPatymentMethod->account_holder_name }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.bank_name') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->bank_name }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.payment_method') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->payment_method }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.account_holder_type') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ">
+                                                {{ Str::ucfirst($providerdata->providerPatymentMethod->account_holder_type) }}</p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.last4') }}</p>
+                                        </td>
+                                        <td>
+                                            <div style="display: flex;" >
+                                                <p class="mb-0 " id="myDIV" >
+                                                    **** ***** ****{{ $providerdata->providerPatymentMethod->last4 }}
+                                                </p>
+                                                <p class="mb-0 " id="bank-detail" style="display: none;" >
+                                                    {{ $bankAccountNumber }}
+                                                </p>
+                                                <a class="mr-2" href="javascript:void(0);" onclick="myFunction()"><i class="far fa-eye text-secondary"></i></a>
+                                            </div>
 
-    </div>
-    </div>
-
-
-    </div>
-
-
-    </div>
-
-    @if ($providerdata->providerPatymentMethod)
-        <div class="card row">
-            <div class="card-body p-0">
-                <div class="col-lg-12">
-                    <div class="provider-bottom row">
-                        <div class="col-lg-12">
-                            <h5>{{ __('messages.bank_details') }}</h5>
-                            <table class="table table-borderless mb-0">
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.account_holder_name') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">
-                                            {{ $providerdata->providerPatymentMethod->account_holder_name }}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.payment_method') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->payment_method }}
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.account_holder_type') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">
-                                            {{ $providerdata->providerPatymentMethod->account_holder_type }}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.last4') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">**** ***** ****
-                                            {{ $providerdata->providerPatymentMethod->last4 }}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.country_id') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->country->name }}
-                                        </p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.currency') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->currency }}</p>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('messages.bank_name') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->bank_name }}</p>
-                                    </td>
-                                </tr>
-                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.country_id') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->country->name }}
+                                            </p>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="p-0">
+                                            <p class="mb-0 text-muted">{{ __('messages.currency') }}</p>
+                                        </td>
+                                        <td>
+                                            <p class="mb-0 ">{{ $providerdata->providerPatymentMethod->currency }}</p>
+                                        </td>
+                                    </tr>
+                                </table>
+                            @else
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span style="text-align: center;" >
+                                        {{__('Bank Detail Not Found.')}}
+                                    </span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    @endif
+
+    </div>
+    </div>
+
+
+    </div>
+
+
+    </div>
+
 
 
 
@@ -532,3 +533,21 @@
     @endsection
 
 </x-master-layout>
+
+
+
+
+<script>
+    function myFunction() {
+      var x = document.getElementById("myDIV");
+      var y = document.getElementById("bank-detail");
+
+      if (x.style.display === "none") {
+        x.style.display = "block";
+        y.style.display = "none";
+      } else {
+        x.style.display = "none";
+        y.style.display = "block";
+      }
+    }
+    </script>

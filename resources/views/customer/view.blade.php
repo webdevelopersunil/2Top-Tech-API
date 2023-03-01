@@ -334,27 +334,27 @@
                                     <th scope="col">{{__('messages.model_number')}}</th>
                                     <th scope="col">{{__('messages.warranty_info')}}</th>
                                     <th scope="col">{{__('messages.voltage_amps')}}</th>
-                                    <th scope="col" class="text-right">{{__('messages.equipment_number')}}</th>
+                                    <th scope="col" >{{__('messages.equipment_number')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(count($customerdata->company->equipments) > 0)
                                     @foreach($customerdata->company->equipments as $key=>$equipment)
                                         <tr class="white-space-no-wrap">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{$equipment->name}}</td>
-                                            <td> {{ $equipment->location }}</td>
-                                            <td>{{ $equipment->category->value }}</td>
-                                            <td>{{ $equipment->refrigerant_type }}</td>
-                                            <td>{{ $equipment->model_no }}</td>
-                                            <td>{{ $equipment->warranty_info }}</td>
-                                            <td>{{ $equipment->voltage_amps }}</td>
-                                            <td class="text-right">{{ $equipment->equipment_number }}</td>
+                                            <td>{{$key+1}}</td>
+                                            <td>{{Str::ucfirst($equipment->name)}}</td>
+                                            <td>{{Str::ucfirst($equipment->location)}}</td>
+                                            <td>{{Str::ucfirst($equipment->category->value)}}</td>
+                                            <td>{{Str::ucfirst($equipment->refrigerant_type)}}</td>
+                                            <td>{{$equipment->model_no}}</td>
+                                            <td>{{Str::ucfirst($equipment->warranty_info)}}</td>
+                                            <td>{{$equipment->voltage_amps}}</td>
+                                            <td class="text-right">{{$equipment->equipment_number}}</td>
                                         </tr>
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="4" class="text-center font-weight-bold">{{__('messages.record_not_found')}}</td>
+                                        <td colspan="12" class="text-center font-weight-bold">{{__('messages.record_not_found')}}</td>
                                     </tr>
                                 @endif
                             </tbody>

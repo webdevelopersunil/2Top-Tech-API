@@ -4,13 +4,8 @@ namespace App\DataTables;
 
 use App\Models\Invoice;
 use App\Traits\DataTableTrait;
-
-// use App\Models\ProviderPayout;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
-use Yajra\DataTables\WithExportQueue;
-use Yajra\DataTables\Html\Editor\Editor;
-use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use App\Http\Service\PlatformFeesService;
 
@@ -44,7 +39,7 @@ class PaymentDataTable extends DataTable
             ->editColumn('tax', function($transcation) {
                 return  '$'.round($transcation->tax, 2);
             })
-            ->editColumn('technician_payout', function($transcation) {
+            ->editColumn('sub_total', function($transcation) {
                 return '$'.round((new PlatformFeesService)->calculatePlatformFees($transcation->id), 2);
             })
             ->editColumn('view_invoice', function($transcation) {
@@ -56,8 +51,7 @@ class PaymentDataTable extends DataTable
                 return date("d-m-Y", strtotime($invoice_date));
             })
 
-            ->addIndexColumn()
-            ->rawColumns([ 'restaurant_name', 'technician_name','view_invoice']);
+            ->addIndexColumn()->rawColumns([ 'restaurant_name', 'technician_name','view_invoice']);
     }
 
     /**
@@ -68,8 +62,6 @@ class PaymentDataTable extends DataTable
      */
     public function query(Invoice $model)
     {
-        // $company        =   (new Company)->company(Auth::user()->id);
-        // $paidInvoices   =   (new Invoice)->getInvoiceStatus($company->id,'Paid');
         $model = $model->where('status', 'Paid')->with("company.location", "provider")->orderBy('id','DESC');
         return $model->newQuery();
     }
@@ -101,24 +93,19 @@ class PaymentDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::make('DT_RowIndex')
-                ->searchable(false)
-                ->title(__('messages.no'))
-                ->orderable(false),
+            Column::make('DT_RowIndex')->searchable(false)->title(__('messages.no'))->orderable(false),
             Column::make('invoice_number'),
             Column::make('updated_at')->title(__('messages.invoive_date')),
             Column::make('company_id')->searchable(true)->title(__('Company Name')),
             Column::make('provider_id')->searchable(true)->title(__('Technician Name')),
             Column::make('total_amount')->title(__('messages.invoice_amount')),
             Column::make('tax'),
-            // technician_payout
-            Column::make('sub_total')->title(__('messages.technician_payout')),
+            Column::make('sub_total')->searchable(false)->title(__('messages.technician_payout')),
             Column::computed('view_invoice')
                   ->exportable(false)
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-
         ];
     }
 
