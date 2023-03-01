@@ -38,11 +38,7 @@ class RestaurantJobDataTable extends DataTable
         ->addColumn('action', function($job){
             // return view('restaurantjob.action',compact('job'))->render();
             return '<div class="d-flex justify-content-end align-items-center"> <a class="mr-2" href="'.route('jobs.show',$job->id).'"><i class="far fa-eye text-secondary"></i></a> </div>';
-        })
-
-        ->editColumn('description', function($job) {
-            return substr($job->description,0,20).'...';
-        })->escapeColumns(['description']);
+        });
     }
 
     /**
@@ -90,16 +86,13 @@ class RestaurantJobDataTable extends DataTable
         return [
             // Column::make('DT_RowIndex')->searchable(false)->title(__('messages.srno'))->orderable(false),
             Column::make('company_id')->title(__('Company Name'))->searchable(true)->orderable(true),
-            Column::make('description')->searchable(true)->orderable(true),
+            Column::make('service_id')->title(__('Service'))->searchable(true)->orderable(true),
+            // Column::make('description')->searchable(true)->orderable(true),
             Column::make('restaurant_location'),
             Column::make('start_at'),
             Column::make('end_at'),
             Column::make('schedule_type'),
-            Column::make('service_id')->title(__('Skill'))->searchable(true)->orderable(true),
             Column::make('status'),
-            // Column::make('is_active'),
-            // Column::make('created_at'),
-            // Column::make('updated_at'),
             Column::computed('action')
                   ->exportable(true)
                   ->printable(true)

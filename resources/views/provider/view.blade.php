@@ -15,7 +15,12 @@
                         <div class="card card-block card-stretch">
                             <div class="card-body p-0">
                                 <div class="d-flex justify-content-between align-items-center p-3">
-                                    <h5 class="font-weight-bold">{{ $pageTitle }}</h5>
+                                    {{-- <h5 class="font-weight-bold">{{ $pageTitle }}</h5> --}}
+                                    <h5 class="font-weight-bold">
+                                        {{ substr(ucfirst($providerdata->user->first_name), 0, 10) }}
+                                        {{ substr(ucfirst($providerdata->user->last_name), 0, 10) }}
+                                    </h5>
+
                                     <a href="{{ route('provider.index') }}   "
                                         class="float-right btn btn-sm btn-primary"><i
                                             class="fa fa-angle-double-left"></i> {{ __('messages.back') }}</a>
@@ -159,9 +164,11 @@
                                     <table class="table table-borderless mb-0">
                                         <tr>
                                             @if (isset($providerdata->services))
-                                            <div class="buttons" >
+                                            <div class="buttons_list">
                                                 @foreach ( $providerdata->services as $service )
+                                                <div class="buttons" >
                                                     <span class="span-tag-services" style=""  >{{$service->service->name}}</span>
+                                                </div>
                                                 @endforeach
                                             </div>
                                             @endif

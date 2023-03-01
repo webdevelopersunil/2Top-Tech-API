@@ -6,7 +6,6 @@
 <x-master-layout>
     <div class="container-fluid">
         <div class="row">
-
             <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-12">
@@ -14,7 +13,7 @@
                             <div class="card-body p-0">
                                 <div class="d-flex justify-content-between align-items-center p-3">
                                     <h5 class="font-weight-bold">{{ $pageTitle }}</h5>
-                                    <a href="{{ route('provider.index') }}   "
+                                    <a href="{{ route('jobs.index') }}   "
                                         class="float-right btn btn-sm btn-primary">
                                         <i class="fa fa-angle-double-left"></i>
                                         {{ __('messages.back') }}
@@ -32,7 +31,20 @@
                             <div class="col-sm-3 col-lg-12">
                                 <div class="card card-block p-card">
                                     <h5>{{ __('Job Detail') }}</h5>
+                                    <p style="width:400px;"></p>
                                     <table class="table table-borderless mb-0">
+
+                                        <tr>
+                                            <td class="p-0">
+                                                <p class="mb-0 text-muted">{{ __('Service') }}</p>
+                                            </td>
+                                            <td>
+                                                <p class="mb-0 ">
+                                                    {{$jobData->service->name}}
+                                                </p>
+                                            </td>
+                                        </tr>
+
                                         <tr>
                                             <td class="p-0">
                                                 <p class="mb-0 text-muted">{{ __('messages.bio') }}</p>
@@ -120,49 +132,6 @@
 
                                     </table>
 
-
-                                    <p style="width:400px;"></p>
-
-                                    {{-- <h5>{{ __('messages.pricing') }}</h5>
-
-                                    <table class="table table-borderless mb-0">
-                                        <tr>
-                                            <td class="p-0">
-                                                <p class="mb-0 text-muted">{{ __('messages.hourly_rate') }}</p>
-                                            </td>
-                                            <td>
-                                                <p class="mb-0 ">
-                                                    $ hourly_rate
-                                                </p>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="p-0">
-                                                <p class="mb-0 text-muted">{{ __('messages.weekend_rate') }}sdd</p>
-                                            </td>
-                                            <td>
-                                                <p class="mb-0 ">
-                                                    weekend_rate
-                                                </p>
-                                            </td>
-                                        </tr>
-
-                                    </table> --}}
-
-                                    <p style="width:400px;"></p>
-
-                                    <h5>{{ __('Service') }}</h5>
-
-                                    <table class="table table-borderless mb-0">
-                                        <tr>
-                                            <div class="buttons">
-                                                <span class="span-tag-services" style="">
-                                                    {{$jobData->service->name}}
-                                                </span>
-                                            </div>
-                                        </tr>
-                                    </table>
                                 </div>
                             </div>
                         </div>
@@ -182,7 +151,7 @@
                                             @endif
 
                                             <h3 class="font-600 text-white text-center mb-5">
-                                                {{ ucfirst($jobData->company->user->display_name) }}
+                                                {{ ucfirst($jobData->company->business_name) }}
                                             </h3>
                                         </div>
                                         <div class="pro-content rounded">
@@ -262,7 +231,7 @@
                 <div class="row">
                     <div class="col-sm-3 col-lg-12">
                         <div class="card card-block p-card">
-                            <h5>{{ __('Providers') }}</h5>
+                            <h5>{{ __('Job Applicants') }}</h5>
                             <table class="table table-borderless mb-0">
                                 <tr>
                                     <td class="p-0">
@@ -303,6 +272,7 @@
                                         </p>
                                     </td>
                                 </tr>
+                                <p style="width:400px;"></p>
                                 @if( count($providers) >= 1 )
                                     @foreach ( $providers as $provider )
                                     <tr>
@@ -351,6 +321,17 @@
                                     @endforeach
                                 @endif
                             </table>
+
+                            <p style="width:400px;"></p>
+
+                            @if( count($providers) == 0 )
+                                <div style="text-align: center;" >
+                                    <span  style="text-decoration: bold;" >
+                                        {{ __('No applicants found.') }}
+                                    </span>
+                                </div>
+
+                            @endif
                         </div>
                     </div>
                 </div>

@@ -2,11 +2,15 @@
 
 namespace App\DataTables;
 
-use App\User;
 use App\Models\Invoice;
-use Illuminate\Http\Request;
 use App\Traits\DataTableTrait;
+
+// use App\Models\ProviderPayout;
+use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
+use Yajra\DataTables\WithExportQueue;
+use Yajra\DataTables\Html\Editor\Editor;
+use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 use App\Http\Service\PlatformFeesService;
 
@@ -62,19 +66,11 @@ class PaymentDataTable extends DataTable
      * @param \App\Models\ProviderPayout $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Invoice $model, Request $request)
+    public function query(Invoice $model)
     {
-        if(isset($request->start_date) && isset($request->end_date) ){
-
-            if( $request->start_date != '' ){
-                $model = $model->where('status', 'Paid')->with("company.location", "provider")->orderBy('id','DESC');
-            }
-        }else{
-            $model =    $model->where('status', 'Paid')
-                        ->where('created_at','<=',$request->start_date)
-                        ->where('created_at','>=',$request->end_date)
-                        ->with("company.location", "provider")->orderBy('id','DESC');
-        }
+        // $company        =   (new Company)->company(Auth::user()->id);
+        // $paidInvoices   =   (new Invoice)->getInvoiceStatus($company->id,'Paid');
+        $model = $model->where('status', 'Paid')->with("company.location", "provider")->orderBy('id','DESC');
         return $model->newQuery();
     }
 
@@ -90,15 +86,10 @@ class PaymentDataTable extends DataTable
                     ->minifiedAjax()
                     ->dom('Bfrtip')
                     ->orderBy(1)
-                    // ->parameters([
-                    //     'dom'          => 'Bfrtip',
-                    //     'buttons'      => ['excel', 'csv'],
-                    // ])
-                    // ->buttons(
-                    //     Button::make('excel'),
-                    //     Button::make('csv')
-                    // )
-                    ;
+                    ->buttons(
+                        Button::make('excel'),
+                        Button::make('csv')
+                    );
     }
 
 

@@ -129,7 +129,18 @@
                                                         <p class="mb-0 text-muted">{{ __('messages.bar') }}</p>
                                                     </td>
                                                     <td>
-                                                        <p class="mb-0 ">{{isset($company->location->bar) ? ucfirst($company->location->bar) : "-"}}</p>
+                                                        <p class="mb-0 ">
+                                                            @if (isset($company->location->bar))
+                                                                @if ($company->location->bar == 1)
+                                                                    {{__('Yes')}}
+                                                                @else
+                                                                    {{__('No')}}
+                                                                @endif
+                                                            @else
+                                                                {{__('No')}}
+                                                            @endif
+                                                            {{-- {{isset($company->location->bar) ? ucfirst($company->location->bar) : "-"}} --}}
+                                                        </p>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -137,7 +148,16 @@
                                                         <p class="mb-0 text-muted">{{ __('messages.parking') }}</p>
                                                     </td>
                                                     <td>
-                                                        <p class="mb-0 ">{{isset($company->location->parking) ? ucfirst($company->location->parking) : "-"}}</p>
+                                                        @if (isset($company->location->parking))
+                                                            @if ($company->location->parking == 1)
+                                                                {{__('Yes')}}
+                                                            @else
+                                                                {{__('No')}}
+                                                            @endif
+                                                        @else
+                                                            {{__('No')}}
+                                                        @endif
+                                                        {{-- <p class="mb-0 ">{{isset($company->location->parking) ? ucfirst($company->location->parking) : "-"}}</p> --}}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -225,12 +245,11 @@
                                  <tr>
                                     <td colspan="4" class="p-0">{{__('messages.subscription_plan')}}</td>
                                     <td colspan="4" style="font-weight: bold;" class="text-center font-weightmb-0 ">
-                                        @if($customerdata->company && $customerdata->company->subsciptionPlan && $customerdata->company->subsciptionPlan->plan && $customerdata->company->subsciptionPlan->plan->title)
-                                            {{ ucfirst($customerdata->company->subsciptionPlan->plan->title) }}
-                                            @else
+                                        @if( isset($customerdata->company->subsciptionPlan->plan->type) )
+                                            {{ ucfirst($customerdata->company->subsciptionPlan->plan->type) }}
+                                        @else
                                              -
                                         @endif
-
                                     </td>
                                 </tr>
                                 <tr>

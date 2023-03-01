@@ -136,7 +136,7 @@ class RestaurantJobRepository extends BaseRepository
 
         if( $job->status == 'Cancelled' ){
 
-            return array('message'=>__('Job already cancelled.'),'status'=>True,'statusCode'=>200,'data'=>[]);
+            return array('message'=>__('Job already cancelled.'),'status'=>False,'statusCode'=>401,'data'=>[]);
 
         }elseif($job){
 
@@ -228,7 +228,7 @@ class RestaurantJobRepository extends BaseRepository
         }elseif( in_array($booking->status,['In-Progress','Puase','Invoiced','Complete']) ){
 
 
-            return array('message'=>__('Job can not be cancelled.'),'status'=>False,'statusCode'=>402,'data'=>[]);
+            return array('message'=>__('Job can not be cancelled.'),'status'=>False,'statusCode'=>401,'data'=>[]);
         }
 
     }

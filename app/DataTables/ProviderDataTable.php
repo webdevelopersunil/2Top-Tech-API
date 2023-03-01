@@ -102,9 +102,9 @@ class ProviderDataTable extends DataTable
             Column::make('display_name')
                 ->title(__('messages.name'))->searchable(false)->orderable(false),
             Column::make('contact_number'),
+            Column::make('state')->title(__('messages.state'))->searchable(false)->orderable(false),
             Column::make('city'),
             Column::make('joined_at'),
-            Column::make('state')->title(__('messages.state'))->searchable(false)->orderable(false),
             Column::make('status'),
             Column::computed('action')
                   ->exportable(false)

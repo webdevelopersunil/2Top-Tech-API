@@ -78,7 +78,7 @@ class JobBooking extends Model
         return $jobBooking;
     }
 
-    public function upcomingJobRestaurant($company_id){
+    public function upcomingJobRestaurant($company_id,$status){
 
         $currentTime  = (new TimeService)->currentTime();
         $upcomingJobs = Self::join('restaurant_jobs', 'restaurant_jobs.id', 'job_bookings.job_id')
@@ -88,6 +88,7 @@ class JobBooking extends Model
                         ->leftJoin('services','services.id','restaurant_jobs.service_id')
                         ->where('provider_documents.document_type','=','provider_profile_picture')
                         ->where('restaurant_jobs.company_id', $company_id)
+                        ->whereIn('restaurant_jobs.status', $status)
                         ->whereIn('job_bookings.status',['Pending','In-Progress'])
                         // ->where('restaurant_jobs.start_at', '>=', $currentTime)
                         ->select(
