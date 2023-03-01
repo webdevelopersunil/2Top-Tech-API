@@ -7,7 +7,7 @@
                     <div class="card-body p-0">
                         <div class="d-flex justify-content-between align-items-center p-3">
                             <h5 class="font-weight-bold">{{ $pageTitle }}</h5>
-                            <a href="{{ route('provider.index') }}   " class="float-right btn btn-sm btn-primary"><i
+                            <a href="{{ route('payment.index') }}   " class="float-right btn btn-sm btn-primary"><i
                                     class="fa fa-angle-double-left"></i> {{ __('messages.back') }}</a>
                         </div>
                     </div>

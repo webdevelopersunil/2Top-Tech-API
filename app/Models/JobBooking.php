@@ -102,7 +102,6 @@ class JobBooking extends Model
                             'services.description as service_description',
                             'providers.uuid as providerId'
                             )
-                        ->whereIn('job_bookings.status',['Pending', 'In-Progress'])
                         ->limit(10)->get();
 
         return  $upcomingJobs;

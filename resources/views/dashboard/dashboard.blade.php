@@ -93,9 +93,7 @@
                                                 <p class="mb-0 ">
                                                     {{ __('messages.total_name', ['name' => __('Bookings')]) }}
                                                 </p>
-                                                <p class="mb-0 ">
-                                                    {{ __('(Last 30 days)') }}
-                                                </p>
+                                                <p class="mb-0 "> &nbsp&nbsp&nbsp </p>
                                             </div>
                                             <div class="col-auto d-flex flex-column">
                                                 <div class="iq-card-icon icon-shape text-white rounded-circle ">
@@ -122,7 +120,9 @@
                                                 <p class="mb-0 ">
                                                     {{ __('messages.total_name', ['name' => __('Job')]) }}
                                                 </p>
-                                                <p class="mb-0 "> &nbsp&nbsp&nbsp </p>
+                                                <p class="mb-0 ">
+                                                    {{ __('(Last 30 days)') }}
+                                                </p>
                                             </div>
                                             <div class="col-auto d-flex flex-column">
                                                 <div class="iq-card-icon icon-shape  text-white rounded-circle">
