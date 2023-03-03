@@ -112,6 +112,7 @@ class JobBooking extends Model
         $currentTime    =   (new TimeService)->currentTime();
         $bookings       =   JobBooking::join('restaurant_jobs','restaurant_jobs.id','=','job_bookings.job_id')
                             ->where('job_bookings.provider_id',$provider_id)
+                            ->where('restaurant_jobs.status', '!=','Cancelled')
                             ->whereNotIn('job_bookings.status',$status)
                             // ->whereDate('restaurant_jobs.start_at', '>=', $currentTime)
                             ->with('job','job.service','job.company','job.company.file','job.company.location.state')

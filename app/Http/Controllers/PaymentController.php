@@ -61,9 +61,7 @@ class PaymentController extends Controller
                                 ->with("company.user","company","company.location.state","provider.states","provider.user", "service", "invoiceItems.files.file")->first();
         $pageTitle          =    __('messages.view_form_title',['form'=> __('messages.invoice_details')]);
 
-
-
-        $data    =   (new PlatformFeesService)->getTotalTimeWorked($id);
+        $data    =   (new PlatformFeesService)->getTotalTimeWorked($invoiceDetails->booking_id);
 
         $tax                =   $invoiceDetails->tax;
         $sum_of_price       =   InvoiceItem::where('invoice_id',$invoiceDetails->id)->sum('price');

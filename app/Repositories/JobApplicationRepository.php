@@ -129,7 +129,8 @@ class JobApplicationRepository extends BaseRepository
             return array('message' => __('messages.record_not_found'),'status'=>False,'statusCode' => 404,'data' =>[]);
         }else{
 
-            $jobRestaurant = (new RestaurantJob)->getJobAllDetail($job_application->job_id);
+            // $jobRestaurant = (new RestaurantJob)->getJobAllDetail($job_application->job_id);
+            $jobRestaurant = RestaurantJob::where('id',$job_application->job_id)->with('company','service','company.user','company.location')->first();
         }
 
         if($provider->id == $job_application->provider_id && $job_application->application_status=='Offer_Sent'){

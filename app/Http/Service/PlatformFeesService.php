@@ -19,7 +19,8 @@ class PlatformFeesService
     }
 
     public function getTotalTimeWorked($booking_id){
-        $time_in_minutes   =   WorkLog::where('booking_id',$booking_id)->sum('interval_time');
+
+        $time_in_minutes    =   WorkLog::where('booking_id',$booking_id)->sum('interval_time');
         $time_in_hours      =   ceil($time_in_minutes / 60);
         $provider_rate      =   JobBooking::where('id',$booking_id)->first('rate');
 
@@ -28,7 +29,6 @@ class PlatformFeesService
             'time_in_hours' =>  $time_in_hours,
             'time_in_minutes'=> $time_in_minutes,
             'total_amount'  =>  $time_in_hours * $provider_rate->rate,
-
         ];
         return $data;
     }

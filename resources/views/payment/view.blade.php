@@ -14,11 +14,6 @@
                 </div>
             </div>
 
-
-
-
-
-
             <div class="col-lg-12" id="printableArea" >
                 <div class="card">
                     <div class="card-body">
@@ -179,11 +174,17 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="text-left">
+                                {{-- <div class="text-left">
                                     <h5 class="font-weight-bold mb-3">{{ __('Line Items') }}</h5>
-                                </div>
+                                </div> --}}
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item p-0">
+
+                                        <br><br>
+
+                                        <div class="text-left">
+                                            <h5 class="font-weight-bold mb-3">{{ __('Line Items') }}</h5>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table table-bordered mb-0">
                                                 <thead>
@@ -191,7 +192,6 @@
                                                         <th scope="col" class="text-left">No.</th>
                                                         <th scope="col">{{ __('Title') }}</th>
                                                         <th scope="col" class="text-center">{{ __('Quantity') }}</th>
-                                                        <th scope="col" class="text-center">{{ __('Unit') }}</th>
                                                         <th scope="col" class="text-center">{{ __('Sub Total') }}</th>
                                                         <th scope="col" class="text-right">{{ __('Price') }}</th>
                                                     </tr>
@@ -211,11 +211,9 @@
                                                                     {{ $invoiceItem->quantity }}
                                                                 </td>
                                                                 <td class="text-center" >
-                                                                    {{ $invoiceItem->unit }}
-                                                                </td>
-                                                                <td class="text-center" >
                                                                     ${{ $invoiceItem->sub_total }}
                                                                 </td>
+
                                                                 <td class="text-right">
                                                                     ${{ $invoiceItem->price }}
                                                                 </td>
@@ -226,6 +224,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                     </li>
                                     <li class="list-group-item">
                                         <div class="d-flex justify-content-end mb-2">

@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Company;
 use App\Models\Provider;
 use  App\Models\Notification;
+use App\Models\AppNotification;
 use Illuminate\Support\Facades\Auth;
 
 class FCMPushNotificationService
@@ -70,6 +71,7 @@ class FCMPushNotificationService
                 'title' => $data['title'],
                 'notifiable_type'=> 'App\Models\User',
                 'notifiable_id'=>$user->id,
+                'status'=>json_decode($response)->success,
                 'description'=>$data['message']
             )
         );
