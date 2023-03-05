@@ -60,4 +60,14 @@ class WorkLog extends Model
         $foundIfAny = Self::where('booking_id',$booking_id)->where('type','WorkLog')->first();
         return $foundIfAny;
     }
+
+    public function getWorkLogs($booking_id, $status){
+
+        return  self::where(['booking_id'=>$booking_id])
+                ->when(count($status) >= 1, function ($q) use ($status) {
+                    $q->whereIn('type', $status);
+                })
+                ->orderBy('created_at','ASC')
+                ->get(['uuid','comment','interval_time','log_time','type']);
+    }
 }

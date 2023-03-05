@@ -9,8 +9,10 @@ use App\Models\BookingRating;
 use App\Models\Company;
 use App\Models\JobBooking;
 use App\Http\Requests\API\CreateRatingReviewRequest;
+use App\Http\Service\PushNotificationService;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NewRatingAdminMail;
+use App\Models\UserRole;
 
 class RatingReviewController extends Controller
 {
@@ -88,6 +90,7 @@ class RatingReviewController extends Controller
 
         $data['rating_by']      =   Auth()->user()->id;
         $data['rating_comment'] =   $request->comment;
+        $roleDetail      =   (new UserRole())->getRole();
 
         $validate   =   JobBooking::where('uuid',$data['booking_id'])->first();
         if( $validate ){
@@ -95,6 +98,7 @@ class RatingReviewController extends Controller
             $data['booking_id'] =   $validate->id;
 
             $found      =   BookingRating::where( ['rating_by'=>$data['rating_by'], 'booking_id'=> $validate->id] )->first();
+
             if($found){
 
                 return common_response( __('Rating already existed against this Booking.') , False, 400, [] );
@@ -104,16 +108,17 @@ class RatingReviewController extends Controller
                 $responseData = BookingRating::create($data);
                 (new BookingRating)->calculateAverageRating($data);
                 $company_details = JobBooking::where('uuid', $request->booking_id)->with('job', 'job.company')->first();
-                if($company_details){
-                    $details['restaurant_name'] = $company_details->job->restaurant_name;
-                    $details['rate'] = $request->rate;
-                    $details['email_template'] = "job_rating";
 
-                    Mail::to(env('ADMIN_EMAIL'))->send(new NewRatingAdminMail($details));
+                if($roleDetail->roleDetail->name == 'provider'){
+                    if($company_details){
+                        $details['company_name']    =   $company_details->job->company->business_name;
+                        $details['rate']            =   $request->rate;
+                        $details['rating_by']       =   $data['rating_by'];
+
+                        (new PushNotificationService)->ratingToCompany($details);
+                        // Mail::to(env('ADMIN_EMAIL'))->send(new NewRatingAdminMail($details));
+                    }
                 }
-
-                // (new BookingRating)->calculateAverageRating($data);
-
                 return common_response( __('messages.ratingCreated'), True, 200, [] );
             }
 

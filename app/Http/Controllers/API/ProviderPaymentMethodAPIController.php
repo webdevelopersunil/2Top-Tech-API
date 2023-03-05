@@ -191,7 +191,7 @@ class ProviderPaymentMethodAPIController extends AppBaseController
 
         $provider   =   Provider::where('user_id',Auth::user()->id)->first('id');
         $bankDetail =   ProviderPaymentMethod::where('provider_id',$provider->id)->first();
-        $bankDetail->account_number    =    Crypt::decryptString($bankDetail->account_number);;
+        $bankDetail->account_number    =    Crypt::decryptString($bankDetail->account_number);
         return common_response( __('messages.provider_payment_method_retrieved_successfully'), True, 200, $bankDetail );
     }
 

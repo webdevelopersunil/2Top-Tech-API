@@ -24,7 +24,7 @@ class DashboardController extends Controller
         $response['job_count']          =   (new RestaurantJob)->JobCountRo($company->id);
         $response['services']           =   (new Service)->getServices();
         $response['jobs']               =   (new RestaurantJob)->jobsRO($company->id);
-        $response['upcoming_jobs']      =   (new JobBooking)->upcomingJobRestaurant($company->id);
+        $response['upcoming_jobs']      =   (new JobBooking)->upcomingJobRestaurant($company->id,['Pending','InProgress']);
         $response['pending_invoices']   =   (new Invoice)->pendingInvoices($company->id);
 
         return common_response(__('messages.success'), True, 200, $response);

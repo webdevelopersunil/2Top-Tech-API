@@ -20,9 +20,8 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(PaymentDataTable $dataTable, Request $request)
+    public function index(PaymentDataTable $dataTable)
     {
-
         $pageTitle = __('messages.list_form_title',['form' => __('messages.transactions')] );
         $assets = ['datatable'];
         return $dataTable->render('payment.index', compact('pageTitle','assets'));
@@ -62,9 +61,7 @@ class PaymentController extends Controller
                                 ->with("company.user","company","company.location.state","provider.states","provider.user", "service", "invoiceItems.files.file")->first();
         $pageTitle          =    __('messages.view_form_title',['form'=> __('messages.invoice_details')]);
 
-
-
-        $data    =   (new PlatformFeesService)->getTotalTimeWorked($id);
+        $data    =   (new PlatformFeesService)->getTotalTimeWorked($invoiceDetails->booking_id);
 
         $tax                =   $invoiceDetails->tax;
         $sum_of_price       =   InvoiceItem::where('invoice_id',$invoiceDetails->id)->sum('price');

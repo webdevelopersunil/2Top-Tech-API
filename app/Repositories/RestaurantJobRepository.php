@@ -52,17 +52,19 @@ class RestaurantJobRepository extends BaseRepository
     public function updateJob($request){
 
         $data           =   $request->except(['files_id']);
+
         $company_id     = Company::where('user_id',Auth::user()->id)->first('id');
 
         $data['company_id'] = $company_id->id;
 
-        $validJob =   RestaurantJob::where('uuid', $request->uuid)
-                            ->where('status', 'Pending')
-                            ->whereHas('applications',
-                            function($q){
-                                $q->whereNotIn('application_status',['Offer_Sent','Offer_Accepted']);
-                            })
-                            ->first();
+        $validJob   =   RestaurantJob::where('uuid', $request->uuid)
+                        ->where('status', 'Pending')
+                        ->where(function ($query) {
+                            $query->doesntHave('applications')
+                                ->orWhereHas('applications', function ($q) {
+                                    $q->whereNotIn('application_status', ['Offer_Sent', 'Offer_Accepted']);
+                                });
+                        })->first();
 
         if($validJob){
             unset($data['service_id']);
@@ -81,7 +83,7 @@ class RestaurantJobRepository extends BaseRepository
 
             // Fetch Providers in Radius
             $response  = [];
-            $response = (new GoogleMap)->fetchInRadiusRecords($data['latitude'], $data['longitude'],$data['service_id'],$job->id);
+            $response = (new GoogleMap)->fetchInRadiusRecords($data['latitude'], $data['longitude'],$job->service_id,$job->id);
 
             $response['requestType'] = "updatePost";
             (new PushNotificationService)->sendEmailNotification($response);
@@ -136,7 +138,7 @@ class RestaurantJobRepository extends BaseRepository
 
         if( $job->status == 'Cancelled' ){
 
-            return array('message'=>__('Job already cancelled.'),'status'=>True,'statusCode'=>200,'data'=>[]);
+            return array('message'=>__('Job already cancelled.'),'status'=>False,'statusCode'=>401,'data'=>[]);
 
         }elseif($job){
 
@@ -166,6 +168,9 @@ class RestaurantJobRepository extends BaseRepository
 
                         (new RestaurantJob)->updateStatus($job->id,'Cancelled');
                         (new PushNotificationService)->bookingCancellationEmailToTechnician($application->provider_id, $company->id);
+                        $res['message']     =   __('Job has been cancelled successfully.');
+                        $res['status']      =   True;
+                        $res['statusCode']  =   200;
 
                     }elseif( $application->application_status == 'Offer_Accepted' ){
 
@@ -188,7 +193,7 @@ class RestaurantJobRepository extends BaseRepository
 
     public function jobBookingCancellation($booking_id){
 
-        $booking    =   JobBooking::where('id',$booking_id)->with('job.company.location.state','provider')->first();
+        $booking    =   JobBooking::where('id',$booking_id)->with('job.company.location.state','provider.user')->first();
 
         if( $booking->status == 'Pending' ){
 
@@ -213,7 +218,7 @@ class RestaurantJobRepository extends BaseRepository
                 (new PushNotificationService)->bookingCancellationEmailToTechnician($booking->provider->id, $company->id);
                 (new FCMPushNotificationService)->bookingCancellationEmailToTechnician($booking->provider->id, $company->id);
 
-                (new PushNotificationService)->bookingCancellationEmailToRestaurant($company->id);
+                (new PushNotificationService)->bookingCancellationEmailToRestaurant($company->id,$booking->provider);
 
             }else{
 
@@ -228,7 +233,7 @@ class RestaurantJobRepository extends BaseRepository
         }elseif( in_array($booking->status,['In-Progress','Puase','Invoiced','Complete']) ){
 
 
-            return array('message'=>__('Job can not be cancelled.'),'status'=>False,'statusCode'=>402,'data'=>[]);
+            return array('message'=>__('Job can not be cancelled.'),'status'=>False,'statusCode'=>401,'data'=>[]);
         }
 
     }

@@ -129,7 +129,18 @@
                                                         <p class="mb-0 text-muted">{{ __('messages.bar') }}</p>
                                                     </td>
                                                     <td>
-                                                        <p class="mb-0 ">{{isset($company->location->bar) ? ucfirst($company->location->bar) : "-"}}</p>
+                                                        <p class="mb-0 ">
+                                                            @if (isset($company->location->bar))
+                                                                @if ($company->location->bar == 1)
+                                                                    {{__('Yes')}}
+                                                                @else
+                                                                    {{__('No')}}
+                                                                @endif
+                                                            @else
+                                                                {{__('No')}}
+                                                            @endif
+                                                            {{-- {{isset($company->location->bar) ? ucfirst($company->location->bar) : "-"}} --}}
+                                                        </p>
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -137,7 +148,16 @@
                                                         <p class="mb-0 text-muted">{{ __('messages.parking') }}</p>
                                                     </td>
                                                     <td>
-                                                        <p class="mb-0 ">{{isset($company->location->parking) ? ucfirst($company->location->parking) : "-"}}</p>
+                                                        @if (isset($company->location->parking))
+                                                            @if ($company->location->parking == 1)
+                                                                {{__('Yes')}}
+                                                            @else
+                                                                {{__('No')}}
+                                                            @endif
+                                                        @else
+                                                            {{__('No')}}
+                                                        @endif
+                                                        {{-- <p class="mb-0 ">{{isset($company->location->parking) ? ucfirst($company->location->parking) : "-"}}</p> --}}
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -219,29 +239,26 @@
                 <div class="card-body">
                     <h5 class="card-title">{{__('messages.membership_plan_details')}}</h5>
                     <div class="table-responsive-sm">
-                        <table class="table mb-0">
-
-                            <tbody>
+                        <table class="table mb-0" style="table-layout: fixed; " >
+                            <tbody  >
                                  <tr>
-                                    <td colspan="4" class="p-0">{{__('messages.subscription_plan')}}</td>
-                                    <td colspan="4" style="font-weight: bold;" class="text-center font-weightmb-0 ">
-                                        @if($customerdata->company && $customerdata->company->subsciptionPlan && $customerdata->company->subsciptionPlan->plan && $customerdata->company->subsciptionPlan->plan->title)
-                                            {{ ucfirst($customerdata->company->subsciptionPlan->plan->title) }}
-                                            @else
+                                    <td style="width: 317px;max-width: 317px;" colspan="4" class="p-0">{{__('messages.subscription_plan')}}</td>
+                                    <td  colspan="4" style="font-weight: bold;" class="text-left font-weightmb-0 ">
+                                        @if( isset($customerdata->company->subsciptionPlan->plan->type) )
+                                            {{ ucfirst($customerdata->company->subsciptionPlan->plan->type) }}
+                                        @else
                                              -
                                         @endif
-
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"  class="p-0">{{__('messages.expires_at')}}</td>
-                                    <td colspan="4" class="text-center font-weightmb-0 " style="font-weight: bold;" >{{$customerdata->company->expires_at? $customerdata->company->expires_at : "-"}}</td>
+                                    <td style="width: 317px;max-width: 317px;" colspan="4"  class="p-0">{{__('messages.expires_at')}}</td>
+                                    <td colspan="4" class="text-left font-weightmb-0 " style="font-weight: bold;" >{{$customerdata->company->expires_at? $customerdata->company->expires_at : "-"}}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="p-0">{{__('messages.subscription_status')}}</td>
-                                    <td colspan="4" class="text-center font-weightmb-0 " style="font-weight: bold;">{{ $customerdata->company->subscription_status? ucfirst($customerdata->company->subscription_status): "-"}}</td>
+                                    <td style="width: 317px;max-width: 317px;" colspan="4" class="p-0">{{__('messages.subscription_status')}}</td>
+                                    <td colspan="4" class="text-left font-weightmb-0 " style="font-weight: bold;">{{ $customerdata->company->subscription_status? ucfirst($customerdata->company->subscription_status): "-"}}</td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>
@@ -315,27 +332,27 @@
                                     <th scope="col">{{__('messages.model_number')}}</th>
                                     <th scope="col">{{__('messages.warranty_info')}}</th>
                                     <th scope="col">{{__('messages.voltage_amps')}}</th>
-                                    <th scope="col" class="text-right">{{__('messages.equipment_number')}}</th>
+                                    <th scope="col" >{{__('messages.equipment_number')}}</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @if(count($customerdata->company->equipments) > 0)
                                     @foreach($customerdata->company->equipments as $key=>$equipment)
                                         <tr class="white-space-no-wrap">
-                                            <td>{{ $key+1 }}</td>
-                                            <td>{{$equipment->name}}</td>
-                                            <td> {{ $equipment->location }}</td>
-                                            <td>{{ $equipment->category->value }}</td>
-                                            <td>{{ $equipment->refrigerant_type }}</td>
-                                            <td>{{ $equipment->model_no }}</td>
-                                            <td>{{ $equipment->warranty_info }}</td>
-                                            <td>{{ $equipment->voltage_amps }}</td>
-                                            <td class="text-right">{{ $equipment->equipment_number }}</td>
+                                            <td>{{$key+1}}</td>
+                                            <td>{{Str::ucfirst($equipment->name)}}</td>
+                                            <td>{{Str::ucfirst($equipment->location)}}</td>
+                                            <td>{{Str::ucfirst($equipment->category->value)}}</td>
+                                            <td>{{Str::ucfirst($equipment->refrigerant_type)}}</td>
+                                            <td>{{$equipment->model_no}}</td>
+                                            <td>{{Str::ucfirst($equipment->warranty_info)}}</td>
+                                            <td>{{$equipment->voltage_amps}}</td>
+                                            <td class="text-right">{{$equipment->equipment_number}}</td>
                                         </tr>
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="4" class="text-center font-weight-bold">{{__('messages.record_not_found')}}</td>
+                                        <td colspan="12" class="text-center font-weight-bold">{{__('messages.record_not_found')}}</td>
                                     </tr>
                                 @endif
                             </tbody>

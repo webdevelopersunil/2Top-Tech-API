@@ -58,10 +58,10 @@ class JobController extends Controller
     {
         $auth_user = authSession();
         $jobData   =    RestaurantJob::where('id',$id)
-                        ->with('company.file','service','company.user','company.location')
-                        ->first();
+                        ->with('company.file','service','company.user','company.location')->first();
+
         $providers  =   JobApplication::where('job_id',$id)->with('providerDetail.user','providerDetail.documents')->get();
-        $pageTitle  =   __('messages.view_form_title',['form'=> __('messages.provider')]);
+        $pageTitle  =   __('messages.view_form_title',['form'=> __('Job')]);
 
         return $dataTable->with('provider_id',$id)
         ->render('restaurantjob.view', compact('pageTitle' ,'jobData' ,'auth_user','providers'));

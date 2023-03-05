@@ -7,17 +7,12 @@
                     <div class="card-body p-0">
                         <div class="d-flex justify-content-between align-items-center p-3">
                             <h5 class="font-weight-bold">{{ $pageTitle }}</h5>
-                            <a href="{{ route('provider.index') }}   " class="float-right btn btn-sm btn-primary"><i
+                            <a href="{{ route('payment.index') }}   " class="float-right btn btn-sm btn-primary"><i
                                     class="fa fa-angle-double-left"></i> {{ __('messages.back') }}</a>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
 
             <div class="col-lg-12" id="printableArea" >
                 <div class="card">
@@ -179,11 +174,17 @@
 
                         <div class="row">
                             <div class="col-lg-12">
-                                <div class="text-left">
+                                {{-- <div class="text-left">
                                     <h5 class="font-weight-bold mb-3">{{ __('Line Items') }}</h5>
-                                </div>
+                                </div> --}}
                                 <ul class="list-group list-group-flush">
                                     <li class="list-group-item p-0">
+
+                                        <br><br>
+
+                                        <div class="text-left">
+                                            <h5 class="font-weight-bold mb-3">{{ __('Line Items') }}</h5>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table table-bordered mb-0">
                                                 <thead>
@@ -191,7 +192,6 @@
                                                         <th scope="col" class="text-left">No.</th>
                                                         <th scope="col">{{ __('Title') }}</th>
                                                         <th scope="col" class="text-center">{{ __('Quantity') }}</th>
-                                                        <th scope="col" class="text-center">{{ __('Unit') }}</th>
                                                         <th scope="col" class="text-center">{{ __('Sub Total') }}</th>
                                                         <th scope="col" class="text-right">{{ __('Price') }}</th>
                                                     </tr>
@@ -211,11 +211,9 @@
                                                                     {{ $invoiceItem->quantity }}
                                                                 </td>
                                                                 <td class="text-center" >
-                                                                    {{ $invoiceItem->unit }}
-                                                                </td>
-                                                                <td class="text-center" >
                                                                     ${{ $invoiceItem->sub_total }}
                                                                 </td>
+
                                                                 <td class="text-right">
                                                                     ${{ $invoiceItem->price }}
                                                                 </td>
@@ -226,6 +224,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                     </li>
                                     <li class="list-group-item">
                                         <div class="d-flex justify-content-end mb-2">
@@ -249,19 +248,30 @@
                                             address. Thanksin advance.</p>
                                     </div>
                                     <div>
-                                        <button class="btn btn-secondary px-4" onclick="printableDiv('printableArea')" >
+                                        {{-- <button class="btn btn-secondary px-4" onclick="printableDiv('printableArea')" >
                                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1" width="20"
                                                 fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
                                             </svg>
                                             Print
-                                        </button>
-                                        <button class="btn btn-primary px-4">Send</button>
+                                        </button> --}}
+                                        {{-- <button class="btn btn-primary px-4">Send</button> --}}
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
+
+
+
+
+
+
+
+
+
                     </div>
                 </div>
             </div>

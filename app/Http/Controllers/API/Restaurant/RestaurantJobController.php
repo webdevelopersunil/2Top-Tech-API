@@ -17,6 +17,7 @@ use App\Http\Requests\JobPostingRequest;
 use App\Http\Service\PushNotificationService;
 use App\Repositories\RestaurantJobRepository;
 use App\Http\Requests\JobApplicationIdRequest;
+use App\Http\Requests\UpdateRestaurantJobRequest;
 
 class RestaurantJobController extends Controller
 {
@@ -131,7 +132,7 @@ class RestaurantJobController extends Controller
         return common_response( __('messages.success'), True, 200, $data);
     }
 
-    public function updateJob(JobPostingRequest $request){
+    public function updateJob(UpdateRestaurantJobRequest $request){
 
         $res   =   $this->restaurantJobRepository->updateJob($request);
         return common_response( $res['message'], $res['status'], $res['statusCode'], $res['data'] );

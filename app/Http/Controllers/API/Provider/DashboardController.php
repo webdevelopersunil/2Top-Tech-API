@@ -25,8 +25,10 @@ class DashboardController extends Controller
         $bankDetail =   ProviderPaymentMethod::where('provider_id',$provider->id)->first();
 
         $data['provider_status']    =   $provider->status;
+        $data['email_verification'] =   (Auth::user()->email_verified_at != null) ? True : False;
         $data['bank_status']        =   $bankDetail ? True : False ;
-        $data['upcoming_bookings']  = (new JobBooking)->providerBookings($provider->id,['Invoiced','Complete','Cancelled']);
+        // $data['upcoming_bookings']  = (new JobBooking)->providerBookings($provider->id,['Invoiced','Complete','Cancelled']);
+        $data['upcoming_bookings']  = (new JobBooking)->providerBookings($provider->id,['Invoiced','Cancelled']);
         $data['offers']             = (new JobApplication)->providerOffers($provider->id,['Offer_Sent']);
         $data['jobs']               = (new RestaurantJob)->jobs($provider);
 

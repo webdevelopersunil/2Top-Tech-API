@@ -93,9 +93,7 @@
                                                 <p class="mb-0 ">
                                                     {{ __('messages.total_name', ['name' => __('Bookings')]) }}
                                                 </p>
-                                                <p class="mb-0 ">
-                                                    {{ __('(Last 30 days)') }}
-                                                </p>
+                                                <p class="mb-0 "> &nbsp&nbsp&nbsp </p>
                                             </div>
                                             <div class="col-auto d-flex flex-column">
                                                 <div class="iq-card-icon icon-shape text-white rounded-circle ">
@@ -122,7 +120,9 @@
                                                 <p class="mb-0 ">
                                                     {{ __('messages.total_name', ['name' => __('Job')]) }}
                                                 </p>
-                                                <p class="mb-0 "> &nbsp&nbsp&nbsp </p>
+                                                <p class="mb-0 ">
+                                                    {{ __('(Last 30 days)') }}
+                                                </p>
                                             </div>
                                             <div class="col-auto d-flex flex-column">
                                                 <div class="iq-card-icon icon-shape  text-white rounded-circle">
@@ -183,8 +183,9 @@
                                                         <div class="data-content">
                                                             <div>
                                                                 <span class="font-weight-bold">
-                                                                    {{ substr(ucfirst($provider->user->first_name), 0, 12) }}
-                                                                    {{ substr(ucfirst($provider->user->last_name), 0, 12) }}
+                                                                    <a href="{{route('provider.show',$provider->id)}}" style="text-decoration: none; color:#324253;"  >
+                                                                        {{ substr(ucfirst($provider->user->first_name), 0, 12) }} {{ substr(ucfirst($provider->user->last_name), 0, 12) }}
+                                                                    </a>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -236,7 +237,9 @@
                                                         </div>
                                                         <div class="data-content">
                                                             <div>
-                                                                <span class="font-weight-bold">{{ !empty($customer->user->display_name) ? substr( ucfirst($customer->user->display_name), 0, 20 ) : '-' }}</span>
+                                                                <a href="{{route('user.show',$customer->user->id)}}" style="text-decoration: none; color:#324253;"  >
+                                                                    <span class="font-weight-bold">{{ !empty($customer->user->display_name) ? substr( ucfirst($customer->user->display_name), 0, 20 ) : '-' }}</span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>

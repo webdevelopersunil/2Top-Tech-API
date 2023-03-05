@@ -35,7 +35,7 @@
 
                 </div>
             </div>
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="row">
@@ -252,7 +252,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
 
         <div class="row">
@@ -261,52 +261,51 @@
                     <div class="card-body">
                         <h5>{{ __('Part Detail Details') }}</h5>
 
+                            {{-- <div class="col-lg-8">
+                                @if (file_exists(asset('storage/' . $partrequest->file->name)))
+                                    <img src="{{ asset('storage/' . $partrequest->file->name) }} alt='File Not Found' " class="gallery-img">
+                                @else
+                                    <span class='mb-0' >-</span>
+                                @endif
+                            </div> --}}
+
                             <table class="table table-borderless mb-0">
+                                <td class="p-0">
+                                    <p class="mb-0 text-muted">{{ __('Part Request Status') }}</p>
+                                </td>
+                                <td>
+                                    @if ($partrequest->status == 'Fullfiled')
+                                        <a class="badge badge-success">Fullfiled</a>
+                                    @elseif($partrequest->status == 'Pending')
+                                        <a class="badge badge-danger">Pending</a>
+                                    @elseif($partrequest->status == 'NotAvailable')
+                                        <a class="badge badge-danger">NotAvailable</a>
+                                    @endif
+                                </td>
                                 <tr>
                                     <td class="p-0">
                                         <p class="mb-0 text-muted">{{ __('messages.account_holder_name') }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 ">
-                                            new new new new
+                                        <p class="mb-0 "> {{ $partrequest->name }} </p>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('Description') }}</p>
+                                        <p class="mb-0 text-muted">{{ __('Model Number') }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 "> {{ $partrequest->description }} </p>
+                                        <p class="mb-0 "> {{ !empty($partrequest->model_no) ? $partrequest->model_no : '-' }} </p>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('SKU') }}</p>
+                                        <p class="mb-0 text-muted">{{ __('description') }}</p>
                                     </td>
                                     <td>
-                                        <p class="mb-0 "> {{ ($partrequest->sku != null) ? $partrequest->sku : '-' }} </p>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('Comment') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 "> {{ ($partrequest->comment != null) ? $partrequest->comment : '-' }} </p>
-                                    </td>
-                                </tr>
-
-
-                                <tr>
-                                    <td class="p-0">
-                                        <p class="mb-0 text-muted">{{ __('Location') }}</p>
-                                    </td>
-                                    <td>
-                                        <p class="mb-0 "> {{ ($partrequest->location != null) ? $partrequest->location : '-' }} </p>
+                                        <p class="mb-0 "> {{ ($partrequest->description != null) ? $partrequest->description : '-' }} </p>
                                     </td>
                                 </tr>
 

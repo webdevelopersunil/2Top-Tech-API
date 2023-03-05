@@ -92,10 +92,10 @@ class UserController extends Controller
 
             $user = Auth::user();
             $emailVerified = User::where('email',request('email'))->first('email_verified_at');
-
-            if($emailVerified->email_verified_at == null){
-                return common_response( __('messages.email_not_verified'), False, 400, $data=[] );
-            }
+            // Commented the email verification check
+            // if($emailVerified->email_verified_at == null){
+            //     return common_response( __('messages.email_not_verified'), False, 400, $data=[] );
+            // }
 
             $roleDetail = UserRole::where('user_id',$user->id)->with('roleDetail')->first();
 

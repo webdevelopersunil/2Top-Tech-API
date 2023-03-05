@@ -62,7 +62,7 @@ class BookingRepository extends BaseRepository
             $response               =   $this->addWorkLog($request->all(),$provider->id,$booking);
             $data['booking_status'] =   isset($this->trackerStatus($booking)['data']) ? $this->trackerStatus($booking)['data'] : null;
             JobBooking::where('id',$booking->id)->update(['duration'=>$data['booking_status']['total_time']]);
-            $data['work_logs']      =   WorkLog::where('booking_id',$booking->id)->orderBy('created_at','ASC')->get(['uuid','comment','interval_time','log_time','type']);
+            $data['work_logs']      =   (new WorkLog)->getWorkLogs($booking->id,[]);
 
             return array('message' => __('Success.') ,'status'=>True,'statusCode' => 200,'data' => $data);
         }
@@ -180,6 +180,7 @@ class BookingRepository extends BaseRepository
             $data['starting_time']  =   $booking->start_at;
             $data['total_time']     =   $this->getTotalTrackedTime($booking->id);
             $data['invoice_status'] =   $this->getInvoiceActiveStatus($booking->id);
+            $data['work_logs']      =   (new WorkLog)->getWorkLogs($booking->id,['WorkLog']);
 
             return array('message' =>'Success.','data' => $data,'statusCode' => 200,'status'=>True);
         }
@@ -226,7 +227,7 @@ class BookingRepository extends BaseRepository
         $foundIfAny =   (new WorkLog)->checkIfWorkLog($booking->id);
         $foundIfExist = (new Invoice)->foundIfExist($booking->id,$provider->id);
         $job        =   RestaurantJob::where('id',$booking->job_id)->with('service')->first();
-        $company    =   Company::where('id',$job->company_id)->with('location')->first();
+        $company    =   Company::where('id',$job->company_id)->with('location','user')->first();
 
 
         if(empty($foundIfAny) || $foundIfAny == Null){
