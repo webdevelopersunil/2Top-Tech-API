@@ -20,11 +20,12 @@ class UserManagementDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        return datatables()
-            ->eloquent($query)
+        return datatables()->eloquent($query)
+            ->addColumn('display_name', function($query){
+                return ucfirst($query->display_name);
+            })
             ->addColumn('role', function($query){
-                $roleDetail = UserRole::where('user_id',$query->id)->with('roleDetail')->first();
-                return 'Staff';
+                return ucfirst((new UserRole)->getRoleName($query->id));
             })
 
             ->addColumn('action', function($query){
@@ -36,10 +37,7 @@ class UserManagementDataTable extends DataTable
                 }elseif($query->status == 0){
                     return 'Un-Active';
                 }
-            })
-
-            // ->addColumn('action', '<div class="d-flex justify-content-end align-items-center"> <a class="mr-2" href="'.route('user_management.show',$query->id).'"><i class="far fa-edit text-secondary"></i></a> </div>')
-            ;
+            });
     }
 
     /**
@@ -50,10 +48,8 @@ class UserManagementDataTable extends DataTable
      */
     public function query(User $model)
     {
-
-        // return $model->newQuery();
-        // return User::join('user_roles', 'users.id', '=', 'user_roles.user_id')->where('user_roles.role_id', 7)->get();
-        $model = $model->with('UserRole');
+        $model  =   $model->join('user_roles', 'users.id', '=', 'user_roles.user_id')
+                    ->select('users.*')->whereIn('user_roles.role_id',[7,1]);
         return $model->newQuery();
     }
 
@@ -88,6 +84,7 @@ class UserManagementDataTable extends DataTable
     {
         return [
             Column::make('display_name'),
+            Column::make('email'),
             Column::make('role'),
             Column::make('status'),
             Column::computed('action')

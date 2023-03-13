@@ -39,4 +39,13 @@ class UserRole extends Model
         return  UserRole::where('user_id',Auth::user()->id)->with('roleDetail')->first();
     }
 
+    public function getRoleName($user_id){
+        $user   =   UserRole::join('users','users.id','=','user_roles.user_id')
+                    ->join('roles','roles.id','=','user_roles.role_id')
+                    ->where('users.id','=',$user_id)
+                    ->Select('roles.*')
+                    ->first();
+        return $user->name;
+    }
+
 }

@@ -20,7 +20,7 @@ class UserManagementController extends Controller
      */
     public function index(UserManagementDataTable $dataTable, Request $request)
     {
-        $pageTitle = __('messages.list_form_title',['form' => __('messages.provider')] );
+        $pageTitle = __('messages.list_form_title',['form' => __('Users')] );
 
         if(!empty($request->status)){
             $pageTitle = __('messages.pending_list_form_title',['form' => __('messages.provider')] );
