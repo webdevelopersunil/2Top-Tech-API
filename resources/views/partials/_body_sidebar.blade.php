@@ -42,6 +42,13 @@ use Lavary\Menu\Menu;
                 ->nickname('Part Request')
                 ->data('permission', 'part request list');
 
+        // inProgressWork
+        // $menu->add('<span>'.__('messages.user_management').'</span>', ['route' => 'user_management.index'])
+        //         ->prepend('<i class="fa fa-users"></i>')
+        //         ->nickname('User Management')
+        //         ->data('permission', 'user management list');
+
+
         // $menu->add('<span>'.__('messages.tax').'</span>', ['route' => 'tax.index'])
         //         ->prepend('<i class="fas fa-percent"></i>')
         //         ->nickname('tax')

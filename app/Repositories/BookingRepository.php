@@ -227,7 +227,7 @@ class BookingRepository extends BaseRepository
         $foundIfAny =   (new WorkLog)->checkIfWorkLog($booking->id);
         $foundIfExist = (new Invoice)->foundIfExist($booking->id,$provider->id);
         $job        =   RestaurantJob::where('id',$booking->job_id)->with('service')->first();
-        $company    =   Company::where('id',$job->company_id)->with('location')->first();
+        $company    =   Company::where('id',$job->company_id)->with('location','user')->first();
 
 
         if(empty($foundIfAny) || $foundIfAny == Null){

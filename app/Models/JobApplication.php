@@ -115,4 +115,12 @@ class JobApplication extends Model
 
         return  $jobApplications;
     }
+
+    public function deleteApplications($job_id,$status){
+        return  self::where(['id'=>$job_id])
+                ->when(count($status) >= 1, function ($q) use ($status) {
+                    $q->whereIn('application_status', $status);
+                })->delete();
+    }
+
 }

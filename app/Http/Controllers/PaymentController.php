@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Models\Payment;
 use App\Models\Invoice;
-
 use App\DataTables\PaymentDataTable;
 use App\Http\Service\PlatformFeesService;
 use App\Models\InvoiceItem;
@@ -56,18 +55,18 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $auth_user = authSession();
+        $auth_user          =   authSession();
         $invoiceDetails     =   Invoice::where('id',$id)->where('status', 'Paid')
                                 ->with("company.user","company","company.location.state","provider.states","provider.user", "service", "invoiceItems.files.file")->first();
         $pageTitle          =    __('messages.view_form_title',['form'=> __('messages.invoice_details')]);
-
-        $data    =   (new PlatformFeesService)->getTotalTimeWorked($invoiceDetails->booking_id);
+        $worlogs            =   WorkLog::where('booking_id',$invoiceDetails->booking_id)->where('type','WorkLog')->get();
+        $data               =   (new PlatformFeesService)->getTotalTimeWorked($invoiceDetails->booking_id);
 
         $tax                =   $invoiceDetails->tax;
         $sum_of_price       =   InvoiceItem::where('invoice_id',$invoiceDetails->id)->sum('price');
         $sum_of_sub_total   =   InvoiceItem::where('invoice_id',$invoiceDetails->id)->sum('sub_total');
 
-        return view( 'payment.view', compact('pageTitle' ,'invoiceDetails','sum_of_price','sum_of_sub_total','tax','data') );
+        return view( 'payment.view', compact('pageTitle' ,'invoiceDetails','sum_of_price','sum_of_sub_total','tax','data','worlogs') );
     }
 
     /**

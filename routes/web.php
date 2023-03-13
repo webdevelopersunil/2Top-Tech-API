@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\TaxController;
@@ -33,6 +34,7 @@ use App\Http\Controllers\EmailTemplateController;
 use App\Http\Controllers\HandymanPayoutController;
 use App\Http\Controllers\PaymentGatewayController;
 use App\Http\Controllers\ProviderPayoutController;
+use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\ProviderDocumentController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
@@ -93,6 +95,8 @@ Route::group(['middleware' => ['auth', 'verified']], function()
 
     // admin routes
     Route::group(['prefix' => 'admin'], function () {
+
+        Route::resource('user_management', UserManagementController::class);
         Route::resource('service', ServiceController::class);
         Route::post('service-action',[ServiceController::class, 'action'])->name('service.action');
         Route::resource('provider', ProviderController::class);

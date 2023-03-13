@@ -98,7 +98,7 @@ class Invoice extends Model
 
         return  Invoice::where('uuid',$uuid)
                     ->with('invoiceItems.files.file')
-                    ->with('booking.job.service','booking.job.equipments.equipment.file')
+                    ->with('booking.job.service','worklogs','booking.job.equipments.equipment.file')
                     ->with('booking.job.company.location.state')
                     ->with('booking.provider.documents.document','booking.provider.user')
                     ->first();
@@ -188,5 +188,8 @@ class Invoice extends Model
     public function service(){
 
         return $this->hasOne(Service::class,'id','service_id');
+    }
+    public function worklogs(){
+        return $this->hasMany(WorkLog::class,'booking_id','id');
     }
 }

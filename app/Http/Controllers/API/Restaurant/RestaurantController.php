@@ -20,6 +20,7 @@ use App\Mail\SendReferralEmail;
 use App\Models\CompanyLocation;
 use App\Models\RestaurantCuisine;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Auth\Events\Registered;
 use App\Repositories\CompanyRepository;
@@ -42,6 +43,13 @@ class RestaurantController extends Controller
     //     $res   =   $this->companyRepository->updateJob($request);
     //     return common_response( $res['message'], $res['status'], $res['statusCode'], $res['data'] );
     // }
+
+    public function emailVerifyResend(Request $request){
+
+        (Auth::user())->sendEmailVerificationNotification();
+
+        return common_response( __('Verification Email has been sent.'), True, 200, [] );
+    }
 
     public function register(RestaurantRequest $request){
 

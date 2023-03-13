@@ -38,7 +38,8 @@ class FCMPushNotificationService
                 "id" : "' . $user->id . '",
                 "message" : "' . $data['message'] . '",
                 "icon" : "ic_launcher",
-                "sound" : "default"
+                "sound" : "default",
+                "priority" : "high"
             },
         }';
 

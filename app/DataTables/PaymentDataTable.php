@@ -3,6 +3,7 @@
 namespace App\DataTables;
 
 use App\Models\Invoice;
+use Illuminate\Http\Request;
 use App\Traits\DataTableTrait;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
@@ -60,10 +61,14 @@ class PaymentDataTable extends DataTable
      * @param \App\Models\ProviderPayout $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Invoice $model)
+    public function query(Invoice $model, Request $request)
     {
-        $model = $model->where('status', 'Paid')->with("company.location", "provider")->orderBy('id','DESC');
-        return $model->newQuery();
+        $model = $model->where('status', 'Paid')->with("company.location", "provider");
+        if( isset($request['start_date']) && $request['start_date'] != null && isset($request['end_date']) && $request['end_date'] != null ){
+            $model = $model->whereBetween('created_at', [$request['start_date'], $request['end_date']]);
+        }
+
+        return $model->orderBy('id','DESC')->newQuery();
     }
 
     /**

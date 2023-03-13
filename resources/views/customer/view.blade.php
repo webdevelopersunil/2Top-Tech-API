@@ -239,12 +239,11 @@
                 <div class="card-body">
                     <h5 class="card-title">{{__('messages.membership_plan_details')}}</h5>
                     <div class="table-responsive-sm">
-                        <table class="table mb-0">
-
-                            <tbody>
+                        <table class="table mb-0" style="table-layout: fixed; " >
+                            <tbody  >
                                  <tr>
-                                    <td colspan="4" class="p-0">{{__('messages.subscription_plan')}}</td>
-                                    <td colspan="4" style="font-weight: bold;" class="text-center font-weightmb-0 ">
+                                    <td style="width: 317px;max-width: 317px;" colspan="4" class="p-0">{{__('messages.subscription_plan')}}</td>
+                                    <td  colspan="4" style="font-weight: bold;" class="text-left font-weightmb-0 ">
                                         @if( isset($customerdata->company->subsciptionPlan->plan->type) )
                                             {{ ucfirst($customerdata->company->subsciptionPlan->plan->type) }}
                                         @else
@@ -253,14 +252,13 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4"  class="p-0">{{__('messages.expires_at')}}</td>
-                                    <td colspan="4" class="text-center font-weightmb-0 " style="font-weight: bold;" >{{$customerdata->company->expires_at? $customerdata->company->expires_at : "-"}}</td>
+                                    <td style="width: 317px;max-width: 317px;" colspan="4"  class="p-0">{{__('messages.expires_at')}}</td>
+                                    <td colspan="4" class="text-left font-weightmb-0 " style="font-weight: bold;" >{{$customerdata->company->expires_at? $customerdata->company->expires_at : "-"}}</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="4" class="p-0">{{__('messages.subscription_status')}}</td>
-                                    <td colspan="4" class="text-center font-weightmb-0 " style="font-weight: bold;">{{ $customerdata->company->subscription_status? ucfirst($customerdata->company->subscription_status): "-"}}</td>
+                                    <td style="width: 317px;max-width: 317px;" colspan="4" class="p-0">{{__('messages.subscription_status')}}</td>
+                                    <td colspan="4" class="text-left font-weightmb-0 " style="font-weight: bold;">{{ $customerdata->company->subscription_status? ucfirst($customerdata->company->subscription_status): "-"}}</td>
                                 </tr>
-
                             </tbody>
                         </table>
                     </div>

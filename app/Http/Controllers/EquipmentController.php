@@ -46,12 +46,12 @@ class EquipmentController extends Controller
         $equipmentCategories = StaticData::where("type", 'equipment_categories')->get();
 
         $pageTitle = __('messages.update_form_title',['form'=> __('messages.equipment')]);
-        
+
         if($equipmentdata == null){
             $pageTitle = __('messages.add_button_form',['form' => __('messages.equipment')]);
             $equipmentdata = new Equipment;
         }
-        
+
         return view('equipment.create', compact('pageTitle' ,'equipmentdata' ,'auth_user', 'equipmentCategories' ));
     }
 
@@ -67,21 +67,21 @@ class EquipmentController extends Controller
         if(demoUserPermission()){
             return  redirect()->back()->withErrors(trans('messages.demo_permission_denied'));
         }
-       
+
        $file = $request->file('file');
        if($file){
             $response = true;
-            
+
             if($request->id){
                 $previous_file_id = Equipment::where('id', $request->id)->pluck("file_id")->first();
                 $file_type = $request->file_type;
-                
+
             }
 
             if($response){
                 // starts
                 $dir = getDirectory($request->file_type);
-               
+
                 if($dir){
                     $dir = str_replace("{uuid}",\Auth::user()->uuid,$dir);
                 }
@@ -102,12 +102,12 @@ class EquipmentController extends Controller
                 ]);
                 $request['file_id'] = $response->id;
             }
-            
-            
+
+
        }
 
        $equipments = $request->all();
-       
+
         $result = Equipment::updateOrCreate(['id' => $request->id], $equipments);
         if($previous_file_id){
             $response = $this->delete_file($previous_file_id, $file_type);
@@ -155,7 +155,7 @@ class EquipmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd('hey');
     }
 
     /**
@@ -174,7 +174,7 @@ class EquipmentController extends Controller
         }
         $equipment = Equipment::find($id);
         $msg= __('messages.msg_fail_to_delete',['item' => __('messages.equipment')] );
-        
+
         if($equipment!='') {
             $equipment->delete();
             $msg= __('messages.msg_deleted',['name' => __('messages.equipment')] );

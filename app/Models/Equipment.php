@@ -126,20 +126,25 @@ class Equipment extends Model
 
     public $fillable = [
         'uuid',
-        'company_id',
-        'equipment_number',
-        'file_id',
-        'make',
         'name',
-        'category_id',
+        'company_id',
         'model_no',
         'location',
-        'sn_no',
-        'refrigerant_type',
         'warranty_info',
-        'voltage_amps',
         'date_of_purchase',
-        'filter_no'
+        'file_id',
+        'category_id',
+
+        'maintenance_type',
+        'maintenance_frequency',
+        'maintenance_comment',
+
+        'equipment_number',
+        'make',
+        // 'sn_no',
+        // 'refrigerant_type',
+        // 'voltage_amps',
+        // 'filter_no'
     ];
 
     /**
@@ -158,12 +163,12 @@ class Equipment extends Model
         'category_id' => 'integer',
         'model_no' => 'integer',
         'location' => 'string',
-        'sn_no' => 'string',
-        'refrigerant_type' => 'string',
+        // 'sn_no' => 'string',
+        // 'refrigerant_type' => 'string',
         'warranty_info' => 'string',
-        'voltage_amps' => 'string',
+        // 'voltage_amps' => 'string',
         'date_of_purchase' => 'datetime',
-        'filter_no' => 'string'
+        // 'filter_no' => 'string'
     ];
 
     /**

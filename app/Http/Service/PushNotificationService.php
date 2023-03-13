@@ -189,7 +189,7 @@ class PushNotificationService
             '{{serviceName}}'   =>  $job->service->name,
         ];
 
-        $toMail         = $user->email;
+        $toMail         = $company->user->email;
         $emailTemplate  = get_email_template('Job_completion_booking_invoice_provider');
         $email_body     = getFormattedEmailData($data, $emailTemplate->email_body);
         $subject        = getFormattedEmailData($data, $emailTemplate->email_subject);
@@ -272,20 +272,40 @@ class PushNotificationService
                                 'subject'   =>$subject,
                                 'toMail'    =>$toMail
                             );
-
         $this->dispatch($data);
     }
 
-    public function bookingCancellationEmailToRestaurant($company_id){
+    public function bookingCancellationEmailToRestaurant($company_id,$provider){
 
         $company    =   Company::with('user')->find($company_id);
 
         $data = [
-            '{{company_name}}'      =>  $company->business_name
+            '{{company_name}}'      =>  $company->business_name,
+            '{{provider_name}}'     =>  $provider->first_name.' '.$provider->last_name
         ];
 
         $toMail         =   $company->user->email;
         $emailTemplate  =   get_email_template('Cancellation_job_email_notification_to_restaurant');
+        $email_body     =   getFormattedEmailData($data, $emailTemplate->email_body);
+        $subject        =   getFormattedEmailData($data, $emailTemplate->email_subject);
+        $data           =   array(
+                                'email_body'=>$email_body,
+                                'subject'   =>$subject,
+                                'toMail'    =>$toMail
+                            );
+
+        $this->dispatch($data);
+    }
+
+    public function ratingToCompany($details){
+
+        $data = [
+            '{{rate}}'      =>  $details['rate'],
+            '{{RO}}'        =>  $details['company_name']
+        ];
+
+        $toMail         =   env('ADMIN_EMAIL');
+        $emailTemplate  =   get_email_template('job_rating');
         $email_body     =   getFormattedEmailData($data, $emailTemplate->email_body);
         $subject        =   getFormattedEmailData($data, $emailTemplate->email_subject);
         $data           =   array(

@@ -313,7 +313,7 @@
                                         </td>
                                         <td class="p-0">
                                             <div class="d-flex justify-content-end align-items-center">
-                                                <a class="mr-2" href="{{ route('provider.show',$provider->id) }} "><i class="far fa-eye text-secondary"></i></a>
+                                                <a class="mr-2" href="{{ route('provider.show',$provider->provider_id) }} "><i class="far fa-eye text-secondary"></i></a>
                                             </div>
                                         </td>
                                     </tr>

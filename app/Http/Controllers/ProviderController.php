@@ -156,7 +156,7 @@ class ProviderController extends Controller
         }
         $pageTitle = __('messages.view_form_title',['form'=> __('messages.provider')]);
 
-        $bankAccountNumber  =   isset($providerdata->providerPatymentMethod->account_number)?Crypt::decryptString($providerdata->providerPatymentMethod->account_number):null;
+        $bankAccountNumber  =   isset($providerdata->providerPatymentMethod->account_number) ? Crypt::decryptString($providerdata->providerPatymentMethod->account_number):null;
 
 
         return $dataTable

@@ -62,8 +62,12 @@ Route::get('user-list',[API\User\UserController::class, 'userList']);
 
 Route::group(['prefix' => 'restaurant','middleware' => ['auth:sanctum','role.validate:restaurant']], function () {
 
-    Route::get('dashboard',[API\Restaurant\DashboardController::class,'index']);
+    Route::post('todo/create',[API\Restaurant\ToDoController::class,'store']);
+    Route::get('todo',[API\Restaurant\ToDoController::class,'index']);
+    Route::post('todo/status',[API\Restaurant\ToDoController::class,'updateStatus']);
 
+    Route::get('dashboard',[API\Restaurant\DashboardController::class,'index']);
+    Route::post('email-verify-resend', [App\Http\Controllers\API\Restaurant\RestaurantController::class, 'emailVerifyResend'] )->middleware(['throttle:5,1']);
     //Update Restaurant Profile Detail
     Route::post('profile',[API\Restaurant\RestaurantController::class,'updateProfile']);
     Route::get('profile',[API\Restaurant\RestaurantController::class,'profile']);
@@ -102,6 +106,8 @@ Route::group(['prefix' => 'restaurant','middleware' => ['auth:sanctum','role.val
 });
 
 Route::group(['prefix' => 'technician','middleware' => ['auth:sanctum','role.validate:provider']], function () {
+
+    Route::post('email-verify-resend', [App\Http\Controllers\API\Restaurant\RestaurantController::class, 'emailVerifyResend'] );
 
     //Update Technician Profile Detail
     Route::post('profile',[API\Provider\ProviderController::class,'updateProfile']);

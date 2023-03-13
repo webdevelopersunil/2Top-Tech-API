@@ -168,6 +168,9 @@ class RestaurantJobRepository extends BaseRepository
 
                         (new RestaurantJob)->updateStatus($job->id,'Cancelled');
                         (new PushNotificationService)->bookingCancellationEmailToTechnician($application->provider_id, $company->id);
+                        $res['message']     =   __('Job has been cancelled successfully.');
+                        $res['status']      =   True;
+                        $res['statusCode']  =   200;
 
                     }elseif( $application->application_status == 'Offer_Accepted' ){
 
@@ -190,7 +193,7 @@ class RestaurantJobRepository extends BaseRepository
 
     public function jobBookingCancellation($booking_id){
 
-        $booking    =   JobBooking::where('id',$booking_id)->with('job.company.location.state','provider')->first();
+        $booking    =   JobBooking::where('id',$booking_id)->with('job.company.location.state','provider.user')->first();
 
         if( $booking->status == 'Pending' ){
 
@@ -215,7 +218,7 @@ class RestaurantJobRepository extends BaseRepository
                 (new PushNotificationService)->bookingCancellationEmailToTechnician($booking->provider->id, $company->id);
                 (new FCMPushNotificationService)->bookingCancellationEmailToTechnician($booking->provider->id, $company->id);
 
-                (new PushNotificationService)->bookingCancellationEmailToRestaurant($company->id);
+                (new PushNotificationService)->bookingCancellationEmailToRestaurant($company->id,$booking->provider);
 
             }else{
 

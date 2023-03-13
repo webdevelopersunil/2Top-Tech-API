@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Provider;
 
 use App\Models\User;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\ProviderRequest;
@@ -18,6 +19,12 @@ class ProviderController extends Controller
     public function __construct(ProviderRepository $providerRepository){
 
         $this->providerRepository  = $providerRepository;
+    }
+
+    public function emailVerifyResend(Request $request){
+
+        (Auth::user())->sendEmailVerificationNotification();
+        return common_response( __('Verification Email has been sent.'), True, 200, [] );
     }
 
     public function register(ProviderRequest $request){

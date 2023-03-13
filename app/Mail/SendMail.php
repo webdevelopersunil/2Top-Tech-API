@@ -28,10 +28,7 @@ class SendMail extends Mailable
      */
     public function build()
     {
-        // trim(config('mail.from.address'))
-        // ->from( ['address' => trim(config('mail.from.address')), 'name' => '2TopTech'] )
         return $this->to($this->data['toMail'])
-            ->from(trim(config('mail.from.address')))
             ->subject(trim($this->data['subject']))
             ->view('emails.email')
             ->with('logo', '')

@@ -289,16 +289,21 @@ class RestaurantJob extends Model
                                     ->whereHas('job', function ($q) { $q->where('status','InProgress'); })
                                     ->where('application_status','Offer_Accepted')->first();
 
-            if( $applications->job->schedule_type == 'ASAP' ){
+            if(isset($applications->job->schedule_type)){
+                if( $applications->job->schedule_type == 'ASAP' ){
 
-                return $isTimeSlotBooked;
+                    return $isTimeSlotBooked;
 
-            }elseif( $applications->job->schedule_type == 'Schedule' ){
+                }elseif( $applications->job->schedule_type == 'Schedule' ){
 
-                $res    =   (new TimeService)->isDateBetween($_application->job->start_at, $applications->job->start_at, $applications->job->end_at);
+                    $res    =   (new TimeService)->isDateBetween($_application->job->start_at, $applications->job->start_at, $applications->job->end_at);
 
-                return  ($res == true) ? $isTimeSlotBooked : 0;
+                    return  ($res == true) ? $isTimeSlotBooked : 0;
+                }
+            }else{
+                $isTimeSlotBooked = 0;
             }
+
 
             return $isTimeSlotBooked;
 

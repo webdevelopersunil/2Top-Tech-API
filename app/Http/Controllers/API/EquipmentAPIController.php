@@ -237,6 +237,11 @@ class EquipmentAPIController extends AppBaseController
     {
         $input = $request->all();
 
+        $equipment = Equipment::where('uuid',$id)->first();
+        if($equipment){
+            $id =   $equipment->id;
+        }
+
         /** @var Equipment $equipment */
         $equipment = $this->equipmentRepository->find($id);
 

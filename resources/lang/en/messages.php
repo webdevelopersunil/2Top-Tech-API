@@ -90,6 +90,7 @@
         'dashboard_no' => 'Dashboard :No',
         'main' => 'Main',
         'part_request' => 'Part Requests',
+        'user_management'=>'User Management',
         'valid_password' => 'Current password do not match.',
         'active' => 'Active',
         'inactive' => 'Inactive',

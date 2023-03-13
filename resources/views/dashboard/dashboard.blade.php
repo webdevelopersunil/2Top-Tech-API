@@ -183,8 +183,9 @@
                                                         <div class="data-content">
                                                             <div>
                                                                 <span class="font-weight-bold">
-                                                                    {{ substr(ucfirst($provider->user->first_name), 0, 12) }}
-                                                                    {{ substr(ucfirst($provider->user->last_name), 0, 12) }}
+                                                                    <a href="{{route('provider.show',$provider->id)}}" style="text-decoration: none; color:#324253;"  >
+                                                                        {{ substr(ucfirst($provider->user->first_name), 0, 12) }} {{ substr(ucfirst($provider->user->last_name), 0, 12) }}
+                                                                    </a>
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -236,7 +237,9 @@
                                                         </div>
                                                         <div class="data-content">
                                                             <div>
-                                                                <span class="font-weight-bold">{{ !empty($customer->user->display_name) ? substr( ucfirst($customer->user->display_name), 0, 20 ) : '-' }}</span>
+                                                                <a href="{{route('user.show',$customer->user->id)}}" style="text-decoration: none; color:#324253;"  >
+                                                                    <span class="font-weight-bold">{{ !empty($customer->user->display_name) ? substr( ucfirst($customer->user->display_name), 0, 20 ) : '-' }}</span>
+                                                                </a>
                                                             </div>
                                                         </div>
                                                     </div>
