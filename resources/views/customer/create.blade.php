@@ -25,13 +25,13 @@
                                     {{ Form::text('first_name',old('first_name'),['placeholder' => __('messages.first_name'),'class' =>'form-control','required']) }}
                                     <small class="help-block with-errors text-danger"></small>
                                 </div>
-                                
+
                                 <div class="form-group col-md-4">
                                     {{ Form::label('last_name',__('messages.last_name').' <span class="text-danger">*</span>',['class'=>'form-control-label'], false ) }}
                                     {{ Form::text('last_name',old('last_name'),['placeholder' => __('messages.last_name'),'class' =>'form-control','required']) }}
                                     <small class="help-block with-errors text-danger"></small>
                                 </div>
-                                
+
                                 <div class="form-group col-md-4">
                                     {{ Form::label('username',__('messages.username').' <span class="text-danger">*</span>',['class'=>'form-control-label'], false ) }}
                                     {{ Form::text('username',old('username'),['placeholder' => __('messages.username'),'class' =>'form-control','required']) }}
@@ -50,7 +50,7 @@
                                         <small class="help-block with-errors text-danger"></small>
                                     </div>
                                 @endif
-                               
+
                                 <div class="form-group col-md-4">
                                     {{ Form::label('contact_number',__('messages.contact_number').' <span class="text-danger">*</span>',['class'=>'form-control-label'], false ) }}
                                     {{ Form::text('contact_number',old('contact_number'),['placeholder' => __('messages.contact_number'),'class' =>'form-control','required']) }}

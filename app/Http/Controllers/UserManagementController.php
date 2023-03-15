@@ -42,7 +42,7 @@ class UserManagementController extends Controller
         $id                 =   $request->id;
         $auth_user          =   authSession();
         $taxdata            =   User::find($id);
-        $pageTitle          =   trans('messages.update_form_title',['form'=>trans('messages.tax')]);
+        $pageTitle          =   __('Create User');
         $user_management    =   '';
 
         return view('user_management.create', compact('pageTitle' ,'taxdata' ,'auth_user','user_management' ));
@@ -61,6 +61,8 @@ class UserManagementController extends Controller
         $user->uuid             =   Str::orderedUuid();
         $user->display_name     =   $request->display_name;
         $user->email            =   $request->email;
+        $user->contact_number   =   $request->contact_number;
+        $user->address          =   $request->address;
         $user->time_zone        =   'UTC';
         $user->email_verified_at=   Carbon::now();
         $user->password         =   Hash::make($request->password);
@@ -83,7 +85,7 @@ class UserManagementController extends Controller
     {
         $auth_user  =   authSession();
         $taxdata    =   User::find($id);
-        $pageTitle  =   __('User Management Update');
+        $pageTitle  =   __('Update User');
         $user_management =   User::where('id',$id)->with('UserRole')->first();
 
         return view('user_management.update', compact('pageTitle','auth_user','user_management'));
@@ -110,9 +112,11 @@ class UserManagementController extends Controller
     public function update(Request $request, $id)
     {
 
-        $user               =   User::find($id);
-        $user->display_name =   $request->display_name;
-        $user->status       =   $request->status;
+        $user                   =   User::find($id);
+        $user->display_name     =   $request->display_name;
+        $user->status           =   $request->status;
+        $user->contact_number   =   $request->contact_number;
+        $user->address          =   $request->address;
         $user->save();
 
         return redirect(route('user_management.index'))->withSuccess('Success');

@@ -85,6 +85,7 @@ class UserManagementDataTable extends DataTable
         return [
             Column::make('display_name'),
             Column::make('email'),
+            Column::make('contact_number'),
             Column::make('role'),
             Column::make('status'),
             Column::computed('action')
