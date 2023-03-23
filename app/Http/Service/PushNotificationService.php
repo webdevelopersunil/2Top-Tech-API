@@ -316,4 +316,27 @@ class PushNotificationService
 
         $this->dispatch($data);
     }
+
+    public function jobCompletionAutoChargeIssue($user,$invoice){
+
+        $company    =   (new Company)->company($user->id);
+
+        $data = [
+            '{{restaurant}}'    =>  $company->business_name,
+            '{{amount}}'        =>  $invoice->total_amount,
+        ];
+
+        $toMail         = $user->email;
+        $emailTemplate  = get_email_template('job_creating_charge_failed');
+        $email_body     = getFormattedEmailData($data, $emailTemplate->email_body);
+        $subject        = getFormattedEmailData($data, $emailTemplate->email_subject);
+
+        $data           = array(
+                            'email_body'=>$email_body,
+                            'subject'   =>$subject,
+                            'toMail'    =>$toMail
+                        );
+
+        $this->dispatch($data);
+    }
 }

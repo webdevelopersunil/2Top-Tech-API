@@ -23,7 +23,8 @@ class ProviderDataTable extends DataTable
     public function dataTable($query)
     {
         return datatables()
-            ->eloquent($query)
+            // ->eloquent($query)
+            ->eloquent($query->with('user'))
             ->editColumn('display_name', function($provider) {
 
                 return '<span style="font-weight:bold;" >'. substr(ucfirst($provider->user->first_name), 0, 12). " ".substr(ucfirst($provider->user->last_name), 0, 12).'</span>';
@@ -68,7 +69,7 @@ class ProviderDataTable extends DataTable
      */
     public function query(Provider $model)
     {
-        $model = $model->with('user');
+        // $model = $model->with('user');
         if($this->list_status != null){
 
             $model = $model->where('status',"pending");
@@ -104,7 +105,7 @@ class ProviderDataTable extends DataTable
             Column::make('contact_number'),
             Column::make('state')->title(__('messages.state'))->searchable(false)->orderable(false),
             Column::make('city'),
-            Column::make('joined_at'),
+            Column::make('created_at')->title(__('joined_at')),
             Column::make('status'),
             Column::computed('action')
                   ->exportable(false)

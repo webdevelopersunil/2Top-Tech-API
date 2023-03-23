@@ -62,6 +62,8 @@ Route::get('user-list',[API\User\UserController::class, 'userList']);
 
 Route::group(['prefix' => 'restaurant','middleware' => ['auth:sanctum','role.validate:restaurant']], function () {
 
+    Route::get('chat/users',[App\Http\Controllers\API\ChatController::class,'roChatUsers']);
+
     Route::post('todo/create',[API\Restaurant\ToDoController::class,'store']);
     Route::get('todo',[API\Restaurant\ToDoController::class,'index']);
     Route::post('todo/status',[API\Restaurant\ToDoController::class,'updateStatus']);
@@ -106,6 +108,8 @@ Route::group(['prefix' => 'restaurant','middleware' => ['auth:sanctum','role.val
 });
 
 Route::group(['prefix' => 'technician','middleware' => ['auth:sanctum','role.validate:provider']], function () {
+
+    Route::get('chat/users',[App\Http\Controllers\API\ChatController::class,'providerChatUsers']);
 
     Route::post('email-verify-resend', [App\Http\Controllers\API\Restaurant\RestaurantController::class, 'emailVerifyResend'] );
 

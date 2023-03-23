@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\AutoApproveInvoice;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
@@ -15,6 +16,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         //
         '\App\Console\Commands\CheckSubscription',
+        AutoApproveInvoice::class,
     ];
 
     /**
@@ -29,6 +31,7 @@ class Kernel extends ConsoleKernel
         if(default_earning_type() === 'subscription'){
             $schedule->command('check:subscription')->daily();
         }
+        $schedule->command('auto_approve:invoices')->hourly();
 
     }
 

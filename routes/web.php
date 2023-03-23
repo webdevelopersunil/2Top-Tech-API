@@ -31,6 +31,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProviderTypeController;
 use App\Http\Controllers\RatingReviewController;
 use App\Http\Controllers\EmailTemplateController;
+use App\Http\Controllers\StripeWebhookController;
 use App\Http\Controllers\HandymanPayoutController;
 use App\Http\Controllers\PaymentGatewayController;
 use App\Http\Controllers\ProviderPayoutController;
@@ -59,7 +60,7 @@ Route::group(['prefix' => 'auth'], function() {
     Route::get('confirm-email', [HomeController::class, 'authConfirmEmail'])->name('auth.confirm-email');
     Route::get('lock-screen', [HomeController::class, 'authlockScreen'])->name('auth.lock-screen');
 });
-
+Route::any('stripe/webhook', [StripeWebhookController::class, 'handleWebhook']);
 Route::get('term-condition',[ FrontendController::class, 'termAndCondition']);
 Route::get('privacy-policy',[ FrontendController::class, 'privacyPolicy']);
 

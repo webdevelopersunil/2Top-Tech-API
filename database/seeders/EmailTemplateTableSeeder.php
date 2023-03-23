@@ -133,7 +133,11 @@ class EmailTemplateTableSeeder extends Seeder
                 'name' => 'Cancellation_job_email_notification_to_restaurant',
                 'email_subject' => "Your booking with {{provider_name}} is cancelled.",
                 'email_body' => "<p>Hi {{company_name}},<p><p>Your booking with {{provider_name}} is cancelled.</p><p>Thank you.</p>",
-
+            ), array (
+                'id' => 19,
+                'name' => 'job_creating_charge_failed',
+                'email_subject' => "Creating Charge Failed.",
+                'email_body' => "<p>Hello {{restaurant}},</p><p>Creating charge process has failed.</p><p>Thankyou</p>",
             )
         ));
     }

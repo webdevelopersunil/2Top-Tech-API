@@ -12,6 +12,7 @@ use Illuminate\Support\Carbon;
 use App\Models\SubscriptionPlan;
 use App\Http\Controllers\Controller;
 use App\Http\Service\WebhookService;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\CompanyPaymentsRequest;
 
 class StripeController extends Controller
@@ -271,5 +272,30 @@ class StripeController extends Controller
                     )
                 ));
         return $response->id;
+    }
+
+    public function createAutoCharge($invoice, $stripeCustomerId, $user, $description){
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        $amount = str_replace([',', '.'], ['', ''], floor($invoice->sub_total));
+
+        try {
+            $charge = Stripe\Charge::create ([
+                "amount" => $amount*100,
+                "currency" => "usd",
+                "customer" => $stripeCustomerId,
+                "metadata" => ["res_email" => $user->email],
+                "description" => $description
+            ]);
+
+            // Log successful charge details
+            Log::info("Stripe charge successful: " . json_encode($charge));
+            return $charge;
+
+        } catch (\Exception $e) {
+            // Log failed charge details
+            Log::error("Stripe charge failed: " . $e->getMessage());
+            return $e;
+        }
     }
 }
